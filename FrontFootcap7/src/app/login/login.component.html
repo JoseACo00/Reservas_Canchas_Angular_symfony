@@ -3,27 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Footcap7</title>
+  <title>Footcap7 Login</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-  <div class="formulario">
-    <form action="Get">
+  <div class="FormLogin">
+    <form action="">
        <h1>Loggin</h1>
 
-      <div class="input-box">
-        <input type="email" placeholder="Introducir el email" required>
-        <i class='bx bx-envelope'></i> <!-- Icono del correo -->
+      <div class="mb-5 form-check">
+        <i class='bx bx-envelope'></i>
+        <input type="email" class="form-control" placeholder="Introducir el email" name="email" formControlName="email" required>
+         <!-- Icono del correo -->
       </div>
 
-      <div class="input-box">
-        <input type="password" placeholder="Introducir la contraseña" required>
-        <i class='bx bx-lock'></i> <!-- icono del passsword-->
+      <div class="mb-5 form-check">
+        <i class='bx bx-lock'></i>
+        <input type="password" class="form-control" placeholder="Introducir la contraseña" formControlName="password" required="">
+       <!-- icono del passsword-->
       </div>
 
       <div class="recordar">
-          <label> <input type="checkbox">Recuerdame</label>
+          <label> <input type="checkbox"  formControlName="remenberMe" >Recuerdame </label>
           <a href="#">¿Has olvidado la contraseña?</a>
       </div>
 
@@ -35,7 +37,6 @@
 
     </form>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
