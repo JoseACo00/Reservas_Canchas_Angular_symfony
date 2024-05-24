@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegistroUsuarioComponent } from './CrearCuentas/registro-usuario/registro-usuario.component';
-import { RegistroAdminComponent } from './registro-admin/registro-admin.component';
-import { RegistroArbitroComponent } from './registro-arbitro/registro-arbitro.component';
+import { RegistroAdminComponent } from './CrearCuentas/registro-admin/registro-admin.component';
+import { RegistroArbitroComponent } from './CrearCuentas/registro-arbitro/registro-arbitro.component';
 
 @NgModule({
   declarations: [
