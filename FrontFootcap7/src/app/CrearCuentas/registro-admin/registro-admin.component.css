@@ -7,19 +7,16 @@
 
 
 body {
-
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* //background: url() no-repeat; */
+  background: url('/assets/Image/FotoAdmin.jpg') no-repeat;
   background-size: cover; /* cubre la imagen el espacio*/
   background-position: center;
-
 }
 
 .createForm {
-
   width: 500px;
   height: auto;
   background: transparent;

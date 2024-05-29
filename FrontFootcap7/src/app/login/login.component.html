@@ -9,7 +9,7 @@
 </head>
 <body>
   <div class="FormLogin">
-    <form action="">
+    <form method="GET">
        <h1>Loggin</h1>
 
       <div class="mb-5 form-check">
@@ -20,23 +20,20 @@
 
       <div class="mb-5 form-check">
         <i class='bx bx-lock'></i>
-        <input type="password" class="form-control" placeholder="Introducir la contraseña" formControlName="password" required="">
+        <input type="password" class="form-control" placeholder="Introducir la contraseña"  name="password"  formControlName="password" required="">
        <!-- icono del passsword-->
       </div>
 
       <div class="recordar">
           <label> <input type="checkbox"  formControlName="remenberMe" >Recuerdame </label>
           <a href="#">¿Has olvidado la contraseña?</a>
-      </div>
-
-      <button  class="btn"  type="submit" >Acceder</button>
-
+      </div><br>
       <div class="registarse-link">
         <p>¿No tienes una cuenta con nosotros? <a href="registrar">Registrarse</a></p>
       </div>
-
     </form>
   </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
