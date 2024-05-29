@@ -9,7 +9,7 @@
 <body>
   <div class="createForm">
     <h2 style="text-align: center;">Crear Usuario</h2>
-    <form action="">
+    <form [formGroup]="FormUser" (ngSubmit)="procesar()">
   <div class="mb-5 form-check">
       <label for="name" class="form-label">Nombre</label>
       <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Introducir nombre" required>
@@ -32,22 +32,22 @@
 
   <div class="mb-5 form-check">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" name="password" formControlName="password" required>
+      <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Introduce el password" required>
   </div>
 
   <div class="mb-5 form-check">
     <label for="age" class="form-label">Edad</label>
-    <input type="number" class="form-control" id="age" name="age" formControlName="age" required>
+    <input type="number" class="form-control" id="age" name="age" formControlName="age" placeholder="Introduce tú edad">
   </div>
 
   <div class="mb-5 form-check">
       <label for="phone" class="form-label">Teléfono</label>
-      <input type="text" class="form-control" id="phone" name="phone" formControlName="phone" required>
+      <input type="text" class="form-control" id="phone" name="phone" formControlName="phone"  placeholder="Introduce un número telefónico" required>
 
   </div>
 
   <div class="d-grid gap-2 col-4 float-end">
-      <button type="submit" class="btn">Registrarse</button>
+      <button type="submit" [disabled]="FormUser.invalid" class="btn">Registrarse</button>
   </div>
   <div class="user-loggin">
     <p>¿Ya tienes cuenta?<a href="loggin">  Inicia sesión</a></p>

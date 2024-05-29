@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { Routes, RouterModule,  } from '@angular/router';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +19,8 @@ import { RegistroArbitroComponent } from './CrearCuentas/registro-arbitro/regist
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    ReactiveFormsModule,
+    FormsModule,
 
   ],
   providers: [],
