@@ -32,8 +32,8 @@ class Arbitro
     #[ORM\Column]
     private ?int $age = null;
 
-    #[ORM\Column]
-    private ?int $phone = null;
+    #[ORM\Column(length: 255)]
+    private ?string $phone = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $experiences = null;
@@ -133,12 +133,12 @@ class Arbitro
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
 
-    public function setPhone(int $phone): static
+    public function setPhone(string $phone): static
     {
         $this->phone = $phone;
 
