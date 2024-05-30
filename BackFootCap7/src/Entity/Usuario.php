@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\CanchaRepository;
+use App\Repository\UsuarioRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CanchaRepository::class)]
-class Cancha
+#[ORM\Entity(repositoryClass: UsuarioRepository::class)]
+class Usuario
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,24 +15,27 @@ class Cancha
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nombre = null;
+    private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $localidad = null;
+    private ?string $username1 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $direccion = null;
+    private ?string $username2 = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
 
     #[ORM\Column]
-    private ?float $precio = null;
+    private ?int $age = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $fotos = null;
+    #[ORM\Column]
+    private ?int $phone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $disponibilidad = null;
-
-    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE,nullable: true)]
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\Column(nullable: true)]
@@ -55,74 +58,86 @@ class Cancha
         return $this->id;
     }
 
-    public function getNombre(): ?string
+    public function getName(): ?string
     {
-        return $this->nombre;
+        return $this->name;
     }
 
-    public function setNombre(string $nombre): static
+    public function setName(string $name): static
     {
-        $this->nombre = $nombre;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getLocalidad(): ?string
+    public function getUsername1(): ?string
     {
-        return $this->localidad;
+        return $this->username1;
     }
 
-    public function setLocalidad(string $localidad): static
+    public function setUsername1(string $username1): static
     {
-        $this->localidad = $localidad;
+        $this->username1 = $username1;
 
         return $this;
     }
 
-    public function getDireccion(): ?string
+    public function getUsername2(): ?string
     {
-        return $this->direccion;
+        return $this->username2;
     }
 
-    public function setDireccion(string $direccion): static
+    public function setUsername2(string $username2): static
     {
-        $this->direccion = $direccion;
+        $this->username2 = $username2;
 
         return $this;
     }
 
-    public function getPrecio(): ?float
+    public function getEmail(): ?string
     {
-        return $this->precio;
+        return $this->email;
     }
 
-    public function setPrecio(float $precio): static
+    public function setEmail(string $email): static
     {
-        $this->precio = $precio;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getFotos(): ?string
+    public function getPassword(): ?string
     {
-        return $this->fotos;
+        return $this->password;
     }
 
-    public function setFotos(string $fotos): static
+    public function setPassword(string $password): static
     {
-        $this->fotos = $fotos;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getDisponibilidad(): ?string
+    public function getAge(): ?int
     {
-        return $this->disponibilidad;
+        return $this->age;
     }
 
-    public function setDisponibilidad(string $disponibilidad): static
+    public function setAge(int $age): static
     {
-        $this->disponibilidad = $disponibilidad;
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getPhone(): ?int
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(int $phone): static
+    {
+        $this->phone = $phone;
 
         return $this;
     }
@@ -132,7 +147,7 @@ class Cancha
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): static
+    public function setCreatedAt(\DateTimeInterface $created_at): static
     {
         $this->created_at = $created_at;
 
@@ -144,7 +159,7 @@ class Cancha
         return $this->created_by;
     }
 
-    public function setCreatedBy(?int $created_by): static
+    public function setCreatedBy(int $created_by): static
     {
         $this->created_by = $created_by;
 
@@ -156,7 +171,7 @@ class Cancha
         return $this->modified_at;
     }
 
-    public function setModifiedAt(?\DateTimeInterface $modified_at): static
+    public function setModifiedAt(\DateTimeInterface $modified_at): static
     {
         $this->modified_at = $modified_at;
 
@@ -168,7 +183,7 @@ class Cancha
         return $this->modified_by;
     }
 
-    public function setModifiedBy(?int $modified_by): static
+    public function setModifiedBy(int $modified_by): static
     {
         $this->modified_by = $modified_by;
 
@@ -192,7 +207,7 @@ class Cancha
         return $this->deleted_by;
     }
 
-    public function setDeletedBy(?int $deleted_by): static
+    public function setDeletedBy(int $deleted_by): static
     {
         $this->deleted_by = $deleted_by;
 
