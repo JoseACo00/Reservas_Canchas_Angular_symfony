@@ -8,7 +8,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  url="http://localhost:8000/login";
+  url='http://192.168.1.35:8000/login';
 
 
   public Login(body:any){

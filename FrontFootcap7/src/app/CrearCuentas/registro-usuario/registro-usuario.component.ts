@@ -33,6 +33,7 @@ export class RegistroUsuarioComponent {
           .subscribe(
             (response) => {
               console.log('Formulario Enviado:', response);
+              this.router.navigate(['/Login']);
               // Puedes agregar aquí lógica adicional después de enviar el formulario
       
             },
