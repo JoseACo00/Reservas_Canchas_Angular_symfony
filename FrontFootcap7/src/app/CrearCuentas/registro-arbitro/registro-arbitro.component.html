@@ -8,7 +8,7 @@
 </head>
 <body>
   <div class="createForm">
-    <h2 style="text-align: center;">Crear cuenta arbitro</h2>
+    <h2 style="text-align: center;">Registro Arbitro</h2>
     <form method="GET">
           <div class="mb-5 form-check">
               <label for="name" class="form-label">Nombre</label>
@@ -43,14 +43,17 @@
           <div class="mb-5 form-check">
               <label for="phone" class="form-label">Teléfono</label>
               <input type="text" class="form-control" id="phone" name="phone" formControlName="phone"  placeholder="Introduce un número de contacto" required>
-
+          </div>
+          <div class="mb-5 form-check">
+            <label for="phone" class="form-label">Experiencias</label>
+            <textarea id="experiences" name="experiences" formControlName="experiences" class="form-control" placeholder="Escribe tus Experiencias como arbitro y tus habilidades"></textarea>
           </div>
 
           <div class="d-grid gap-2 col-4 float-end">
               <button type="submit" class="btn" >Registrarse</button>
           </div>
           <div class="user-loggin">
-            <p>¿Ya tienes cuenta?<a href="loggin">  Inicia sesión</a></p>
+            <p>¿Ya tienes cuenta?<a href="Login">  Inicia sesión</a></p>
           </div>
     </form>
 </div>

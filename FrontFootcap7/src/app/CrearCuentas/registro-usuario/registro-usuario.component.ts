@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/User/usuario.service';
 
 @Component({
   selector: 'app-registro-usuario',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegistroUsuarioComponent {
 
-  constructor(private router: Router, private fb: FormBuilder){
+  constructor(private router: Router, private fb: FormBuilder, private UsuarioService: UsuarioService){
 
   }
 
@@ -25,7 +26,21 @@ export class RegistroUsuarioComponent {
 
       procesar() {
         console.log(this.FormUser.value);
-
+      }
+      
+      public CrearUsaurio() {
+        this.UsuarioService.registrarUsuario(this.FormUser.value)
+          .subscribe(
+            (response) => {
+              console.log('Formulario Enviado:', response);
+              // Puedes agregar aquí lógica adicional después de enviar el formulario
+      
+            },
+            (err : any) => {
+              console.error('Error al crear el usuario:', err);
+              // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
+            }
+          ); 
       }
 }
 

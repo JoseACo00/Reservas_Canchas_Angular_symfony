@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistroUsuarioComponent } from './CrearCuentas/registro-usuario/registro-usuario.component';
 import { RegistroAdminComponent } from './CrearCuentas/registro-admin/registro-admin.component';
 import { RegistroArbitroComponent } from './CrearCuentas/registro-arbitro/registro-arbitro.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { RegistroArbitroComponent } from './CrearCuentas/registro-arbitro/regist
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    HttpClientModule
 
   ],
   providers: [],
