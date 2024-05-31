@@ -11,7 +11,7 @@ export class UsuarioService {
 
 
   //EndPoint de la api de symfony para registar usuario
-  createUserURl='http://localhost:8000/registro-Usuario';
+  createUserURl='http://localhost:8000/registrarUsuario';
 
   //Funcion para creare  mandar los datos en Formato Json y el back registra el usaurio
   public registrarUsuario(data: any){

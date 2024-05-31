@@ -18,10 +18,10 @@ class Arbitro
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username1 = null;
+    private ?string $surname1 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username2 = null;
+    private ?string $surname2 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;

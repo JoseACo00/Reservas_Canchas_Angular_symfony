@@ -25,7 +25,7 @@ class UsuarioType extends AbstractType
                     ])
                 ]
             ])
-            ->add('username1', TextType::class, [
+            ->add('surname1', TextType::class, [
                 'required' => true,
                 'constraints' => [
                     new Length([
@@ -34,7 +34,7 @@ class UsuarioType extends AbstractType
                     ])
                 ]
             ])
-            ->add('username2', TextType::class, [
+            ->add('surname2', TextType::class, [
                 'required' => true,
                 'constraints' => [
                     new Length([

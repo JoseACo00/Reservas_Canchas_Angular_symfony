@@ -19,10 +19,10 @@ class Usuario
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username1 = null;
+    private ?string $surname1 = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $username2 = null;
+    private ?string $surname2 = null;
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -71,26 +71,26 @@ class Usuario
         return $this;
     }
 
-    public function getUsername1(): ?string
+    public function getSurname1(): ?string
     {
-        return $this->username1;
+        return $this->surname1;
     }
 
-    public function setUsername1(string $username1): static
+    public function setSurname1(string $surname1): static
     {
-        $this->username1 = $username1;
+        $this->surname1 = $surname1;
 
         return $this;
     }
 
-    public function getUsername2(): ?string
+    public function getSurname2(): ?string
     {
-        return $this->username2;
+        return $this->surname2;
     }
 
-    public function setUsername2(string $username2): static
+    public function setSurname2(string $surname2): static
     {
-        $this->username2 = $username2;
+        $this->surname2 = $surname2;
 
         return $this;
     }
