@@ -21,7 +21,7 @@ class UsuarioType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'max' => 60
+                        'max' => 45,
                     ])
                 ]
             ])
@@ -30,7 +30,7 @@ class UsuarioType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'max' => 40
+                        'max' => 30
                     ])
                 ]
             ])
@@ -51,7 +51,7 @@ class UsuarioType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 6,
-                        'max' => 30,
+                        'max' => 50,
                     ])
                 ]
             ])
@@ -68,7 +68,7 @@ class UsuarioType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new Length([
-                        'min' =>  6,
+                        'min' =>  9,
                         'max' => 12,
                     ]),
                 ]
