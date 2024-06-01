@@ -9,7 +9,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioController extends AbstractController
@@ -67,7 +66,6 @@ class UsuarioController extends AbstractController
         $hashedPassword = password_hash($Usuario->getPassword(), PASSWORD_DEFAULT);
         $Usuario->setPassword($hashedPassword);
 
-        $pavilion = $usuarioForm->getData();
         $Usuario->setCreatedAt(new \DateTime('now'));
         // Persistir el nuevo usuario en la base de datos
         $em->persist($Usuario);
