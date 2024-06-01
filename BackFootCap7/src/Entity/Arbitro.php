@@ -56,6 +56,9 @@ class Arbitro
     #[ORM\Column(nullable: true)]
     private ?int $deleted_by = null;
 
+    #[ORM\ManyToOne(targetEntity: Rol::class)]
+    #[ORM\JoinColumn(name: "rol_id", referencedColumnName: "id")]
+    private ?Rol $rol;
     public function getId(): ?int
     {
         return $this->id;
@@ -225,6 +228,18 @@ class Arbitro
     public function setDeletedBy(int $deleted_by): static
     {
         $this->deleted_by = $deleted_by;
+
+        return $this;
+    }
+
+    public function getRol(): ?Rol
+    {
+        return $this->rol;
+    }
+
+    public function setRol(?Rol $rol): self
+    {
+        $this->rol = $rol;
 
         return $this;
     }
