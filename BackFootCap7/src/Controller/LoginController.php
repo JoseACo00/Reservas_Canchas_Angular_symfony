@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Arbitro;
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
@@ -44,17 +45,26 @@ class LoginController extends AbstractController
 
         // Verificar si el usuario existe
         if (!$usuario) {
-            return new JsonResponse(['error' => 'El correo es invalido'], JsonResponse::HTTP_UNAUTHORIZED);
+            $usuario = $em->getRepository(Arbitro::class)->findOneBy(['email' => $email]);
+        }
+
+        // Verificar si el usuario existe
+        if (!$usuario) {
+            return new JsonResponse(['error' => 'El correo es inválido'], JsonResponse::HTTP_UNAUTHORIZED);
         }
 
         // Verificar si la contraseña proporcionada coincide con la contraseña almacenada
         if (!password_verify($password, $usuario->getPassword())) {
-            return new JsonResponse(['error' => 'El password no es el correcto'], JsonResponse::HTTP_UNAUTHORIZED);
+            return new JsonResponse(['error' => 'El password no es correcto'], JsonResponse::HTTP_UNAUTHORIZED);
         }
+
+        // Obtener el rol del usuario
+        $rol = $usuario->getRol();
 
         // Crear un array de datos del usuario para incluir en el token JWT
         $userData = [
             'email' => $usuario->getEmail(),
+            'rol_id' => $rol->getId()
             // Otros datos del usuario que quieras incluir en el token
         ];
 

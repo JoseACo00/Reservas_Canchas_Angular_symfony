@@ -38,7 +38,7 @@ export class LoginComponent {
             if (res.token) {
               sessionStorage.setItem('TokenJWT', res.token);
               alert('Inicio de sesión exitoso');
-              this.router.navigate(['/Inicio']); // Redirige a la página principal después del inicio de sesión
+              this.router.navigate(['Inicio']); // Redirige a la página principal después del inicio de sesión
             } else {
               alert('Credenciales inválidas');
             }
