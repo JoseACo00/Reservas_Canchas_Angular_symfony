@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Rol;
 use App\Entity\Usuario;
 use App\Form\UsuarioType;
 use App\Repository\UsuarioRepository;
@@ -62,6 +63,16 @@ class UsuarioController extends AbstractController
             return new JsonResponse(['error' => 'El número de teléfono ya está en uso por otro usuario'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        //ASIGNAMOS EL ROL QUE LE CORRESPONDE A ROL USUARIO
+
+//        $rolUsuario=$this->UsuarioRepository(find->get)
+
+        $rolUsuario = $em->getRepository(Rol::class)->find(1);
+        if(!$rolUsuario){
+            return  new JsonResponse(['error' => 'No se encontro el rol'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $Usuario->setRol($rolUsuario);
         // Encriptar la contraseña utilizando password_hash()
         $hashedPassword = password_hash($Usuario->getPassword(), PASSWORD_DEFAULT);
         $Usuario->setPassword($hashedPassword);

@@ -9,6 +9,10 @@ import { RegistroAdminComponent } from './CrearCuentas/registro-admin/registro-a
 import { RegistroArbitroComponent } from './CrearCuentas/registro-arbitro/registro-arbitro.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { InicioComponent } from './inicio/inicio.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { CanchasComponent } from './Menu/canchas/canchas.component';
+import { SobreNosotrosComponent } from './Menu/sobre-nosotros/sobre-nosotros.component';
+import { ReservasComponent } from './Menu/reservas/reservas.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,10 @@ import { InicioComponent } from './inicio/inicio.component';
     RegistroAdminComponent,
     RegistroArbitroComponent,
     InicioComponent,
+    NavbarComponent,
+    CanchasComponent,
+    SobreNosotrosComponent,
+    ReservasComponent,
   ],
   imports: [
     BrowserModule,

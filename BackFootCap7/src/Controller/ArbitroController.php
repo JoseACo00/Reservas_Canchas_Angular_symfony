@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Arbitro;
+use App\Entity\Rol;
 use App\Form\ArbitroType;
 use App\Repository\ArbitroRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,6 +47,14 @@ class ArbitroController extends AbstractController
         if($existArbitroPhone){
             return  new JsonResponse(['error', 'El número ya pertenece a otro arbitro'], JsonResponse::HTTP_BAD_REQUEST);
         }
+
+        $rolArbitro= $em->getRepository(Rol::class)->find(3);
+
+        if(!$rolArbitro){
+            return  new JsonResponse(['error' => 'El rol de'], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $Arbitro->setRol($rolArbitro);
 
         $hashedPassword= password_hash($Arbitro->getPassword(), PASSWORD_DEFAULT);
         $Arbitro->setPassword($hashedPassword);
