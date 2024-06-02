@@ -18,19 +18,6 @@ class Rol
     #[ORM\Column(length: 10)]
     private ?string $nameRol = null;
 
-    #[ORM\ManyToOne(inversedBy: 'rols')]
-    private ?Usuario $Usuario = null;
-
-    /**
-     * @var Collection<int, Usuario>
-     */
-    #[ORM\OneToMany(targetEntity: Usuario::class, mappedBy: 'Rol')]
-    private Collection $usuarios;
-
-    public function __construct()
-    {
-        $this->usuarios = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -49,45 +36,4 @@ class Rol
         return $this;
     }
 
-    public function getUsuario(): ?Usuario
-    {
-        return $this->Usuario;
-    }
-
-    public function setUsuario(?Usuario $Usuario): static
-    {
-        $this->Usuario = $Usuario;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Usuario>
-     */
-    public function getUsuarios(): Collection
-    {
-        return $this->usuarios;
-    }
-
-    public function addUsuario(Usuario $usuario): static
-    {
-        if (!$this->usuarios->contains($usuario)) {
-            $this->usuarios->add($usuario);
-            $usuario->setRol($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUsuario(Usuario $usuario): static
-    {
-        if ($this->usuarios->removeElement($usuario)) {
-            // set the owning side to null (unless already changed)
-            if ($usuario->getRol() === $this) {
-                $usuario->setRol(null);
-            }
-        }
-
-        return $this;
-    }
 }
