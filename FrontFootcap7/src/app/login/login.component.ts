@@ -51,4 +51,35 @@ export class LoginComponent {
       alert('Por favor, completa todos los campos del formulario.');
     }
   }
+
+  public onLogin021() {
+    if (this.formLogin.valid) {
+      const rememberMe = this.formLogin.get('remenberMe')?.value;
+      this.LoginService.Login(this.formLogin.value)
+        .subscribe(
+          (res: any) => {
+            if (res.token) {
+              if (rememberMe) {
+                localStorage.setItem('TokenJWT', res.token);
+              } else {
+                sessionStorage.setItem('TokenJWT', res.token);
+              }
+              setTimeout(() => {
+                  this.router.navigate(['/Inicio']);
+              }, 2000);
+
+              // this.onSuccess('Inicio de sesión exitoso');
+              //setTimeout(()=>{this.router.navigate(['/Inicio'])}, 2000); // Redirige a la página principal después del inicio de sesión
+          }
+
+          }
+        
+        );
+    } else {
+     
+    }
+  }
+
+
+
 }

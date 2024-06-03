@@ -9,7 +9,7 @@
 <body>
   <div class="createForm">
     <h2 style="text-align: center;">Crear cuenta admin</h2>
-    <form method="GET">
+    <form [formGroup]="formAdmin"  (ngSubmit)="procesar()">
           <div class="mb-5 form-check">
               <label for="name" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Introducir nombre" required>
@@ -36,8 +36,8 @@
           </div>
 
           <div class="mb-5 form-check">
-            <label for="age" class="form-label">Edad</label>
-            <input type="number" class="form-control" id="age" name="age" formControlName="age" placeholder="Escoge tú edad" required>
+            <label for="birthdate" class="form-label">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="birthdate" name="birthdate" formControlName="birthdate" placeholder="Escoge la fechad de tu nacimiento" required>
           </div>
 
           <div class="mb-5 form-check">

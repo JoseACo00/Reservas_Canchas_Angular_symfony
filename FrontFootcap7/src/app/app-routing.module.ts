@@ -8,6 +8,8 @@ import { InicioComponent } from './inicio/inicio.component';
 import { CanchasComponent } from './Menu/canchas/canchas.component';
 import { SobreNosotrosComponent } from './Menu/sobre-nosotros/sobre-nosotros.component';
 import { ReservasComponent } from './Menu/reservas/reservas.component';
+import { LogginGuard } from './guards/login-guard.guard';
+import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
 
 const routes: Routes = [
   {path:'Login', component: LoginComponent},
@@ -17,7 +19,8 @@ const routes: Routes = [
   {path: 'Inicio', component: InicioComponent},
   {path: 'Canchas', component: CanchasComponent },
   {path: 'Sobre-Nosotros', component: SobreNosotrosComponent},
-  {path: 'Reservas', component: ReservasComponent}
+  {path: 'Reservas', component: ReservasComponent},
+  {path: 'Inicio-Footcap7', component: InicioMenuComponent}
 ];
 
 @NgModule({

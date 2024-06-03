@@ -13,6 +13,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CanchasComponent } from './Menu/canchas/canchas.component';
 import { SobreNosotrosComponent } from './Menu/sobre-nosotros/sobre-nosotros.component';
 import { ReservasComponent } from './Menu/reservas/reservas.component';
+import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ReservasComponent } from './Menu/reservas/reservas.component';
     CanchasComponent,
     SobreNosotrosComponent,
     ReservasComponent,
+    InicioMenuComponent,
   ],
   imports: [
     BrowserModule,
