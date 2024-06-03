@@ -10,7 +10,7 @@ export class AdminService {
 
 
   //Creacion de Admin
-  url=''
+  url= 'http://localhost:8000/registrarAdmin';
 
   public createAdmin(data:any){
     return this.http.post(this.url,data)

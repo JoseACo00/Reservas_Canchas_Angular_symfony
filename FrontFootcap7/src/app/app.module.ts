@@ -14,6 +14,10 @@ import { CanchasComponent } from './Menu/canchas/canchas.component';
 import { SobreNosotrosComponent } from './Menu/sobre-nosotros/sobre-nosotros.component';
 import { ReservasComponent } from './Menu/reservas/reservas.component';
 import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
+import { ServiciosComponent } from './Menu/servicios/servicios.component';
+import { PartidoComponent } from './Menu/partido/partido.component';
+import { ContactoComponent } from './Menu/contacto/contacto.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
     SobreNosotrosComponent,
     ReservasComponent,
     InicioMenuComponent,
+    ContactoComponent,
+    ServiciosComponent,
+    PartidoComponent,
   ],
   imports: [
     BrowserModule,

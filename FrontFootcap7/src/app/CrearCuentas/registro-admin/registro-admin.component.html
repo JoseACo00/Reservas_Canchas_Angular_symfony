@@ -9,7 +9,7 @@
 <body>
   <div class="createForm">
     <h2 style="text-align: center;">Crear cuenta admin</h2>
-    <form [formGroup]="formAdmin"  (ngSubmit)="procesar()">
+    <form [formGroup]="formAdmin"  (ngSubmit)="crearAdmin()">
           <div class="mb-5 form-check">
               <label for="name" class="form-label">Nombre</label>
               <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Introducir nombre" required>

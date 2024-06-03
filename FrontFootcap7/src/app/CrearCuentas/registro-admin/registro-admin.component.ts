@@ -1,3 +1,4 @@
+import { AdminService } from './../../services/Admin/admin.service';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Route, Router } from '@angular/router';
@@ -10,7 +11,7 @@ import { Route, Router } from '@angular/router';
 export class RegistroAdminComponent {
 
 
-  constructor(private router:Router, private fb: FormBuilder){
+  constructor(private router:Router, private fb: FormBuilder, private AdminService: AdminService){
 
   }
 
@@ -25,10 +26,25 @@ export class RegistroAdminComponent {
   });
 
 
-  // Ejemplo de uso  
+  // Ejemplo de uso
   procesar() {
     console.log(this.formAdmin.value);
   }
 
-  
+
+  public crearAdmin() {
+    this.AdminService.createAdmin(this.formAdmin.value)
+      .subscribe(
+        (response) => {
+          console.log('Admin creado:', response);
+          this.router.navigate(['/Login']);
+          // Puedes agregar aquí lógica adicional después de enviar el formulario
+        },
+        (err : any) => {
+          console.error('Error al crear el arbitro:', err);
+          // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
+        }
+      );
+  }
 }
+

@@ -1,3 +1,5 @@
+import { ServiciosComponent } from './Menu/servicios/servicios.component';
+import { ContactoComponent } from './Menu/contacto/contacto.component';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -20,7 +22,9 @@ const routes: Routes = [
   {path: 'Canchas', component: CanchasComponent },
   {path: 'Sobre-Nosotros', component: SobreNosotrosComponent},
   {path: 'Reservas', component: ReservasComponent},
-  {path: 'Inicio-Footcap7', component: InicioMenuComponent}
+  {path: 'Inicio-Footcap7', component: InicioMenuComponent},
+  {path: 'Contacto', component: ContactoComponent},
+  {path: 'Servicios', component: ServiciosComponent}
 ];
 
 @NgModule({

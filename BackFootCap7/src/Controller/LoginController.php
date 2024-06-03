@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Admin;
 use App\Entity\Arbitro;
 use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,16 +45,21 @@ class LoginController extends AbstractController
         $usuario = $em->getRepository(Usuario::class)->findOneBy(['email' => $email]);
 
         // Verificar si el usuario existe
+        // Si no se encuentra en Usuario, buscar en Arbitro
         if (!$usuario) {
             $usuario = $em->getRepository(Arbitro::class)->findOneBy(['email' => $email]);
+        }
+
+        // Si no se encuentra en Usuario ni en Arbitro, buscar en Admin
+        if (!$usuario) {
+            $usuario = $em->getRepository(Admin::class)->findOneBy(['email' => $email]);
         }
 
         // Verificar si el usuario existe
         if (!$usuario) {
             return new JsonResponse(['error' => 'El correo es inválido'], JsonResponse::HTTP_UNAUTHORIZED);
         }
-
-        // Verificar si la contraseña proporcionada coincide con la contraseña almacenada
+            // Verificar si la contraseña proporcionada coincide con la contraseña almacenada
         if (!password_verify($password, $usuario->getPassword())) {
             return new JsonResponse(['error' => 'El password no es correcto'], JsonResponse::HTTP_UNAUTHORIZED);
         }
@@ -64,7 +70,9 @@ class LoginController extends AbstractController
         // Crear un array de datos del usuario para incluir en el token JWT
         $userData = [
             'email' => $usuario->getEmail(),
-            'rol_id' => $rol->getId()
+            'name' => $usuario->getName(),
+            'rol_id' => $rol->getId(),
+            'rolName' => $rol->getNameRol(),
             // Otros datos del usuario que quieras incluir en el token
         ];
 

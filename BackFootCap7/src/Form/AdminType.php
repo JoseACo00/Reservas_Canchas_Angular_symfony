@@ -3,43 +3,76 @@
 namespace App\Form;
 
 use App\Entity\Admin;
-use App\Entity\Rol;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Date;
 
 class AdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('surname1')
-            ->add('surname2')
-            ->add('email')
-            ->add('password')
-            ->add('birthdate', null, [
+            ->add('name', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 45,
+                    ])
+                ]
+            ])
+            ->add('surname1', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 30
+                    ])
+                ]
+            ])
+            ->add('surname2', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'max' => 30
+                    ])
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'required' => true,
+            ])
+            ->add('password', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'max' => 50,
+                    ])
+                ]
+            ])
+            ->add('birthdate',  DateType::class,[
                 'widget' => 'single_text',
+                'required' => true,
+                'constraints' => [
+                    new Date(),
+                ]
             ])
-            ->add('phone')
-            ->add('created_at', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('created_by')
-            ->add('modified_at', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('modified_by')
-            ->add('deleted_at', null, [
-                'widget' => 'single_text',
-            ])
-            ->add('deleted_by')
-            ->add('rol', EntityType::class, [
-                'class' => Rol::class,
-                'choice_label' => 'id',
-            ])
-        ;
+            ->add('phone', TextType::class, [
+                'required' => true,
+                'constraints' => [
+                    new Length([
+                        'min' =>  9,
+                        'max' => 12,
+                    ]),
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
