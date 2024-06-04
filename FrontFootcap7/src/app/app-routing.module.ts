@@ -1,3 +1,4 @@
+import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
 import { ServiciosComponent } from './Menu/servicios/servicios.component';
 import { ContactoComponent } from './Menu/contacto/contacto.component';
 import { NgModule, Component } from '@angular/core';
@@ -24,7 +25,8 @@ const routes: Routes = [
   {path: 'Reservas', component: ReservasComponent},
   {path: 'Inicio-Footcap7', component: InicioMenuComponent},
   {path: 'Contacto', component: ContactoComponent},
-  {path: 'Servicios', component: ServiciosComponent}
+  {path: 'Servicios', component: ServiciosComponent},
+  {path: 'CreateCancha', component: PostCanchaComponent}
 ];
 
 @NgModule({

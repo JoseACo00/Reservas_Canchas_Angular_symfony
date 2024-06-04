@@ -8,7 +8,6 @@ export class AdminService {
 
   constructor(private http: HttpClient) { }
 
-
   //Creacion de Admin
   url= 'http://localhost:8000/registrarAdmin';
 

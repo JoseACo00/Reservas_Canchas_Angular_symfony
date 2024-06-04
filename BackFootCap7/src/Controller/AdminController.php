@@ -4,21 +4,29 @@ namespace App\Controller;
 
 use App\Entity\Admin;
 use App\Entity\Arbitro;
+use App\Entity\Cancha;
 use App\Entity\Rol;
 use App\Form\AdminType;
+use App\Form\CanchaType;
 use App\Repository\AdminRepository;
+use App\Repository\CanchaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+
 class AdminController extends AbstractController
 {
 
+    private $CanchaRepository;
     private $AdminRepository;
-    public function   __construct(AdminRepository $AdminRepository)
+    public function   __construct(AdminRepository $AdminRepository, CanchaRepository $CanchaRepository)
     {
         $this->AdminRepository = $AdminRepository;
+        $this->CanchaRepository = $CanchaRepository;
     }
 
     //CREACION DE ADMIN
@@ -71,9 +79,53 @@ class AdminController extends AbstractController
         $em->flush();
 
         return new JsonResponse(['message' => 'Admin creado'], JsonResponse::HTTP_CREATED);
-
-
-
     }
+
+
+    //CREAR CANCHA DE FUTBOL
+    #[Route('/Registrar_Cancha', name: 'registrarCancha', methods: ['POST'])]
+    public function crearCancha(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
+    {
+        $user = $this->getUser();
+        $data = json_decode($request->getContent(), true);
+
+        $cancha = new Cancha();
+
+        $canchaForm = $this->createForm(CanchaType::class, $cancha);
+        $canchaForm->submit($data);
+
+        if($canchaForm->isValid()){
+            $cancha = $canchaForm->getData();
+            $imagenFile = $canchaForm->get('imagen')->getData();
+
+            //Evitar archivos extraños con nombre raros
+            if($imagenFile){
+                $originalFilename = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagenFile->guessExtension();
+                try {
+                    $imagenFile->move($this->getParameter('image_directory'),
+                        $newFilename);
+                } catch (FileException $e) {
+                throw  new \Exception('There was an error uploading your file.');
+                }
+            }
+
+            $cancha->setCreatedAt(new \DateTime('now'));
+            $cancha->setCreatedBy($user->getId());
+
+            $em->persist($cancha);
+            $em->flush();
+
+            return $cancha;
+        }else{
+            return new JsonResponse(['error' => $canchaForm->getErrors()], JsonResponse::HTTP_BAD_REQUEST);
+        }
+    }
+
+
+
+
+
 
 }
