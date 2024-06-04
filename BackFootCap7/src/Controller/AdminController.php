@@ -83,7 +83,7 @@ class AdminController extends AbstractController
 
 
     //CREAR CANCHA DE FUTBOL
-    #[Route('/Registrar_Cancha', name: 'registrarCancha', methods: ['POST'])]
+    #[Route('/registrarCancha', name: 'registrarCancha', methods: ['POST'])]
     public function crearCancha(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
     {
         $user = $this->getUser();
@@ -102,13 +102,13 @@ class AdminController extends AbstractController
             if($imagenFile){
                 $originalFilename = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imagenFile->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imagenFile->guessExtension();
                 try {
-                    $imagenFile->move($this->getParameter('image_directory'),
-                        $newFilename);
+                    $imagenFile->move($this->getParameter('image_directory'), $newFilename);
                 } catch (FileException $e) {
-                throw  new \Exception('There was an error uploading your file.');
+                    return new JsonResponse(['error' => 'There was an error uploading your file.'], JsonResponse::HTTP_BAD_REQUEST);
                 }
+                $cancha->setImagen($newFilename);
             }
 
             $cancha->setCreatedAt(new \DateTime('now'));
@@ -116,10 +116,14 @@ class AdminController extends AbstractController
 
             $em->persist($cancha);
             $em->flush();
+            return new JsonResponse(['success' => 'Cancha created successfully.'], JsonResponse::HTTP_CREATED);
+        } else {
+            $errors = [];
+            foreach ($canchaForm->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+            }
+            return new JsonResponse(['error' => $errors], JsonResponse::HTTP_BAD_REQUEST);
 
-            return $cancha;
-        }else{
-            return new JsonResponse(['error' => $canchaForm->getErrors()], JsonResponse::HTTP_BAD_REQUEST);
         }
     }
 

@@ -14,4 +14,12 @@ export class AdminService {
   public createAdmin(data:any){
     return this.http.post(this.url,data)
   }
+
+
+  //Crear Canchas
+
+  addcancha= 'http://localhost:8000/registrarCancha';
+  public addCancha(data:any){
+    return this.http.post(this.addcancha,data)
+  }
 }

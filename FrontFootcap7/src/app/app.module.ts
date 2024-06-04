@@ -39,6 +39,7 @@ import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
     ServiciosComponent,
     PartidoComponent,
     FooterComponent,
+    PostCanchaComponent
 
   ],
   imports: [

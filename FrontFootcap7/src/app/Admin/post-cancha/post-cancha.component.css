@@ -1,0 +1,108 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Popins", sans-serif;
+}
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: rgb(72, 18, 102);
+  background-size: cover; /* cubre la imagen el espacio*/
+  background-position: center;
+}
+
+.createForm {
+  width: 500px;
+  height: auto;
+  background: transparent;
+  border: 2px solid  rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  border-radius:  10px;
+  padding:   120px 40px;
+}
+
+.createForm .form-label{
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.createForm h1{
+
+  font-size: 36px;
+  text-align: center;
+
+}
+
+.createForm .input-box{
+  position: relative; /* Poner lo iconos dentro el input*/
+  width: 100%;
+  height: 50px;
+  margin: 30px 0;
+}
+.input-box input{
+
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255,255, 255, .2);
+  border-radius: 40px;
+  font-size: 16px;
+  color: #fff;
+  padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder{
+  color: #fff;
+}
+
+
+/* .createForm .alert{
+
+  margin: auto;
+  background-color: black;
+  color: #fff;
+} */
+
+.createForm .btn{
+  width: 100%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.createForm .user-loggin{
+  color: rgb(255, 255, 255);
+  font-size: 15px;
+  text-align: center;
+  margin: 20px 0 15px;
+
+}
+
+.user-loggin p a {
+  color: #00bbb4;
+  text-decoration: none;
+  font-weight: 600;
+
+}
+
+.user-loggin p a:hover{
+  text-decoration: underline;
+
+}

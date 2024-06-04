@@ -3,15 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Cancha;
-use Doctrine\DBAL\Types\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\File;
 
 class CanchaType extends AbstractType
 {
@@ -32,7 +32,7 @@ class CanchaType extends AbstractType
                 'constraints' => [
                     new Length([
                         'min' => 3,
-                        'max' => 100,
+                        'max' => 30,
                     ])
                 ]
             ])
@@ -56,13 +56,12 @@ class CanchaType extends AbstractType
                 ]
             ] )
             ->add('imagen',FileType::class, [
-                'label' => 'Imagen (JPEG/PNG/WEBP/HEIC/HEIF file)',
+                'label' => 'imagen (JPEG/PNG/WEBP/HEIC/HEIF file)',
                 'mapped' => false,
                 'required' => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => '3000K', // Máximo 3.0 MB
-                        'minSize' => '10K', // Mínimo 1 MB
+                        'maxSize' => '3000k', // Máximo 3.0 MB
                         'mimeTypes' => [
                             'image/jpeg',
                             'image/png',
