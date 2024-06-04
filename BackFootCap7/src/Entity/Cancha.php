@@ -26,7 +26,7 @@ class Cancha
     #[ORM\Column]
     private ?float $precio = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imagen = null;
 
     #[ORM\Column(length: 255)]
@@ -108,9 +108,9 @@ class Cancha
         return $this->imagen;
     }
 
-    public function setImagen(string $fotos): static
+    public function setImagen(string $imagen): static
     {
-        $this->imagen = $fotos;
+        $this->imagen = $imagen;
 
         return $this;
     }

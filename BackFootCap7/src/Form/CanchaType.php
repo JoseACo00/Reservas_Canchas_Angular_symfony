@@ -49,7 +49,7 @@ class CanchaType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new Length([
-                            'min' => 25,
+                            'min' => 1,
                             'max' => 120
                         ]
                     )
@@ -87,6 +87,7 @@ class CanchaType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Cancha::class,
+            'csrf_protection' => false, //NECESARIO SI IMPORATAMOS EL MAKEBULDER MAKE BUILDER
         ]);
     }
 }

@@ -86,7 +86,7 @@ class AdminController extends AbstractController
     #[Route('/registrarCancha', name: 'registrarCancha', methods: ['POST'])]
     public function crearCancha(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
     {
-        $user = $this->getUser();
+
         $data = json_decode($request->getContent(), true);
 
         $cancha = new Cancha();
@@ -112,7 +112,6 @@ class AdminController extends AbstractController
             }
 
             $cancha->setCreatedAt(new \DateTime('now'));
-            $cancha->setCreatedBy($user->getId());
 
             $em->persist($cancha);
             $em->flush();
@@ -127,6 +126,62 @@ class AdminController extends AbstractController
         }
     }
 
+
+    //EDIT DE CANCHA
+    #[Route('/Cancha/{cancha_id}/edit', name: 'actualizarCancha', methods: ['PUT'])]
+    public function editarCancha(Request $request, $cancha_id,EntityManagerInterface $em, SluggerInterface $slugger)
+    {
+        $data = json_decode($request->getContent(), true);
+        $cancha = $this->CanchaRepository->find($cancha_id);
+
+        if(!$cancha){
+            return new JsonResponse(['error' => 'La cancha id no fue encontrada'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $canchaForm = $this->createForm(CanchaType::class, $cancha);
+        $canchaForm->submit($data);
+
+        if(!$canchaForm->isValid()){
+            // Construir un array de errores de validación
+            $errors = [];
+            foreach ($canchaForm->getErrors(true) as $error) {
+                $errors[] = $error->getMessage();
+            }
+            return new JsonResponse(['error' => $errors], JsonResponse::HTTP_BAD_REQUEST);
+        }
+
+        $cancha->setModifiedAt(new \DateTime('now'));
+
+        $em->persist($cancha);
+        $em->flush();
+
+        return new JsonResponse(['success' => 'Cancha actualizada correctamente', 'cancha' => $cancha]);
+    }
+
+
+
+    //DELETE DE CANCHA
+    #[Route('/Cancha/{cancha_id}/delete', name: 'actualizarCancha', methods: ['DELETE'])]
+    public function eliminarCancha(Request $request, $cancha_id,EntityManagerInterface $em, SluggerInterface $slugger)
+    {
+
+        $cancha = $this->CanchaRepository->find($cancha_id);
+
+        if(!$cancha){
+            return new JsonResponse(['error' => 'La cancha no existe'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $cancha->setDeletedAt(new \DateTime('now'));
+
+        $em->persist($cancha);
+        $em->flush();
+
+        return new JsonResponse(['message' => 'La cancha con el nombre: ' .$cancha->getNombre().' fue borrada'], JsonResponse::HTTP_OK);
+
+    }
+
+
+    //EDITAR RESERVA
 
 
 

@@ -79,6 +79,7 @@ class AdminType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Admin::class,
+            'csrf_protection' => false, //NECESARIO SI IMPORATAMOS EL MAKEBULDER MAKE BUILDER
         ]);
     }
 }
