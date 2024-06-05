@@ -55,22 +55,9 @@ class CanchaType extends AbstractType
                     )
                 ]
             ] )
-            ->add('imagen',FileType::class, [
-                'label' => 'imagen (JPEG/PNG/WEBP/HEIC/HEIF file)',
-                'mapped' => false,
-                'required' => true,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '3000k', // Máximo 3.0 MB
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/webp',
-                            'image/heic',
-                            'image/heif',
-                        ]
-                    ])
-                ],
+            ->add('imagen', TextType::class, [
+                'required' => false,
+                'attr' => ['placeholder' => 'URL de la imagen']
             ])
             ->add('disponibilidad', TextType::class, [
                 'required' => true,

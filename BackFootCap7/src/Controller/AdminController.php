@@ -11,6 +11,7 @@ use App\Form\CanchaType;
 use App\Repository\AdminRepository;
 use App\Repository\CanchaRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -23,98 +24,56 @@ class AdminController extends AbstractController
 
     private $CanchaRepository;
     private $AdminRepository;
-    public function   __construct(AdminRepository $AdminRepository, CanchaRepository $CanchaRepository)
+
+    private $serializer;
+    public function   __construct(AdminRepository $AdminRepository, CanchaRepository $CanchaRepository, SerializerInterface $serializer)
     {
         $this->AdminRepository = $AdminRepository;
         $this->CanchaRepository = $CanchaRepository;
+        $this->serializer = $serializer;
     }
 
     //CREACION DE ADMIN
-
-    #[Route('/registrarAdmin', name: 'registrarAdmin', methods: ['POST'])]
-    public function registrarAdmin(Request $request, EntityManagerInterface $em)
-    {
-
-        // Decodificar los datos JSON de la solicitud
-        $data = json_decode($request->getContent(), true);
-
-        $admin = new Admin();
-
-        $adminForm = $this->createForm(AdminType::class, $admin);
-        $adminForm->submit($data);
-
-        if(!$adminForm->isValid()){
-            $adminForm;
-        }
-
-        $existEmailAdmin = $em->getRepository(Arbitro::class)->findOneBy(['email'=> $admin->getEmail()]);
-
-        if($existEmailAdmin){
-            return new JsonResponse(['error' => 'El correo electrónico ya está en uso por otro Admin'], JsonResponse::HTTP_BAD_REQUEST);
-        }
-
-        $exitPhoneAdmin = $em->getRepository(Arbitro::class)->findOneBy(['phone'=> $admin->getPhone()]);
-
-        if($exitPhoneAdmin){
-            return new JsonResponse(['error' => 'El phone ya pertenece a otro Admin'], JsonResponse::HTTP_BAD_REQUEST);
-        }
-
-        // Si el número de teléfono ya existe, devuelve un mensaje de error
-        if ($exitPhoneAdmin) {
-            return new JsonResponse(['error' => 'El número de teléfono ya está en uso por otro usuario'], JsonResponse::HTTP_BAD_REQUEST);
-        }
-
-        $rolAdmin = $em->getRepository(Rol::class)->find(1);
-        if(!$rolAdmin){
-            return  new JsonResponse(['error' => 'No se encontro el rol'], JsonResponse::HTTP_BAD_REQUEST);
-        }
-
-        $admin->setRol($rolAdmin);
-        // Encriptar la contraseña utilizando password_hash()
-        $hashedPassword = password_hash($admin->getPassword(), PASSWORD_DEFAULT);
-        $admin->setPassword($hashedPassword);
-
-        $admin->setCreatedAt(new \DateTime('now'));
-        $em->persist($admin);
-        $em->flush();
-
-        return new JsonResponse(['message' => 'Admin creado'], JsonResponse::HTTP_CREATED);
-    }
-
-
-    //CREAR CANCHA DE FUTBOL
     #[Route('/registrarCancha', name: 'registrarCancha', methods: ['POST'])]
     public function crearCancha(Request $request, EntityManagerInterface $em, SluggerInterface $slugger)
     {
-
         $data = json_decode($request->getContent(), true);
 
         $cancha = new Cancha();
 
-        $canchaForm = $this->createForm(CanchaType::class, $cancha);
+        // Eliminar la protección CSRF
+        $canchaForm = $this->createForm(CanchaType::class, $cancha, ['csrf_protection' => false]);
         $canchaForm->submit($data);
 
-        if($canchaForm->isValid()){
+        if ($canchaForm->isValid()) {
             $cancha = $canchaForm->getData();
-            $imagenFile = $canchaForm->get('imagen')->getData();
 
-            //Evitar archivos extraños con nombre raros
-            if($imagenFile){
-                $originalFilename = pathinfo($imagenFile->getClientOriginalName(), PATHINFO_FILENAME);
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename . '-' . uniqid() . '.' . $imagenFile->guessExtension();
-                try {
-                    $imagenFile->move($this->getParameter('image_directory'), $newFilename);
-                } catch (FileException $e) {
-                    return new JsonResponse(['error' => 'There was an error uploading your file.'], JsonResponse::HTTP_BAD_REQUEST);
+            if (isset($data['imagen'])) {
+                $imageUrl = $data['imagen'];
+                $imageContents = file_get_contents($imageUrl);
+                if ($imageContents) {
+                    $originalFilename = pathinfo($imageUrl, PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.jpg'; // o la extensión apropiada
+
+                    $imageDirectory = $this->getParameter('kernel.project_dir') . '/public/imagesCanchas';
+                    if (!file_exists($imageDirectory)) {
+                        mkdir($imageDirectory, 0777, true);
+                    }
+
+                    $imagePath = $imageDirectory . '/' . $newFilename;
+                    file_put_contents($imagePath, $imageContents);
+                    $cancha->setImagen($newFilename);
+                } else {
+                    return new JsonResponse(['error' => 'No se pudo descargar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
                 }
-                $cancha->setImagen($newFilename);
             }
 
             $cancha->setCreatedAt(new \DateTime('now'));
 
             $em->persist($cancha);
             $em->flush();
+
             return new JsonResponse(['success' => 'Cancha created successfully.'], JsonResponse::HTTP_CREATED);
         } else {
             $errors = [];
@@ -122,46 +81,68 @@ class AdminController extends AbstractController
                 $errors[] = $error->getMessage();
             }
             return new JsonResponse(['error' => $errors], JsonResponse::HTTP_BAD_REQUEST);
-
         }
     }
 
 
     //EDIT DE CANCHA
-    #[Route('/Cancha/{cancha_id}/edit', name: 'actualizarCancha', methods: ['PUT'])]
-    public function editarCancha(Request $request, $cancha_id,EntityManagerInterface $em, SluggerInterface $slugger)
+    #[Route('/cancha/{cancha_id}/edit', name: 'actualizarCancha', methods: ['PUT'])]
+    public function editarCancha(Request $request, $cancha_id, EntityManagerInterface $em, SluggerInterface $slugger)
     {
         $data = json_decode($request->getContent(), true);
-        $cancha = $this->CanchaRepository->find($cancha_id);
+        $cancha = $em->getRepository(Cancha::class)->find($cancha_id);
 
-        if(!$cancha){
+        if (!$cancha) {
             return new JsonResponse(['error' => 'La cancha id no fue encontrada'], JsonResponse::HTTP_NOT_FOUND);
         }
 
-        $canchaForm = $this->createForm(CanchaType::class, $cancha);
+        $canchaForm = $this->createForm(CanchaType::class, $cancha, ['csrf_protection' => false]);
         $canchaForm->submit($data);
 
-        if(!$canchaForm->isValid()){
-            // Construir un array de errores de validación
+        if ($canchaForm->isValid()) {
+            $cancha = $canchaForm->getData();
+
+            if (isset($data['imagen'])) {
+                $imageUrl = $data['imagen'];
+                $imageContents = file_get_contents($imageUrl);
+                if ($imageContents) {
+                    $originalFilename = pathinfo($imageUrl, PATHINFO_FILENAME);
+                    $safeFilename = $slugger->slug($originalFilename);
+                    $newFilename = $safeFilename . '-' . uniqid() . '.jpg'; // o la extensión apropiada
+
+                    $imageDirectory = $this->getParameter('image_directory');
+                    if (!file_exists($imageDirectory)) {
+                        mkdir($imageDirectory, 0777, true);
+                    }
+
+                    $imagePath = $imageDirectory . '/' . $newFilename;
+                    file_put_contents($imagePath, $imageContents);
+                    $cancha->setImagen($newFilename);
+                } else {
+                    return new JsonResponse(['error' => 'No se pudo descargar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
+                }
+            }
+
+            $cancha->setModifiedAt(new \DateTime('now'));
+
+            $em->persist($cancha);
+            $em->flush();
+
+            return new JsonResponse(['success' => 'Cancha actualizada correctamente', 'cancha' => $cancha]);
+        } else {
             $errors = [];
             foreach ($canchaForm->getErrors(true) as $error) {
                 $errors[] = $error->getMessage();
             }
             return new JsonResponse(['error' => $errors], JsonResponse::HTTP_BAD_REQUEST);
         }
-
-        $cancha->setModifiedAt(new \DateTime('now'));
-
-        $em->persist($cancha);
-        $em->flush();
-
-        return new JsonResponse(['success' => 'Cancha actualizada correctamente', 'cancha' => $cancha]);
     }
 
 
 
+
     //DELETE DE CANCHA
-    #[Route('/Cancha/{cancha_id}/delete', name: 'actualizarCancha', methods: ['DELETE'])]
+    #[Route('/Cancha/{cancha_id}/delete', name: 'borrarCancha', methods: ['DELETE'])]
     public function eliminarCancha(Request $request, $cancha_id,EntityManagerInterface $em, SluggerInterface $slugger)
     {
 
