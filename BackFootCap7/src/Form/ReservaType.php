@@ -44,6 +44,7 @@ class ReservaType extends AbstractType
             ])
             ->add('arbitro_opcion', CheckboxType::class, [
                 'required' => false,
+                'mapped' => true,
             ])
             ->add('metodo_pago', TextType::class, [
                 'required' => true,

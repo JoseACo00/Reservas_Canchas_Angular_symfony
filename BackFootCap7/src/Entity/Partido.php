@@ -44,6 +44,9 @@ class Partido
     #[ORM\Column(nullable: true)]
     private ?int $deleted_by = null;
 
+    #[ORM\Column(length: 20)]
+    private string $estado_arbitro = "No requerido"; // Estado inicial por defecto.;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +156,17 @@ class Partido
     {
         $this->deleted_by = $deleted_by;
 
+        return $this;
+    }
+
+    public function getEstadoArbitro(): string
+    {
+        return $this->estado_arbitro;
+    }
+
+    public function setEstadoArbitro(string $estado_arbitro): self
+    {
+        $this->estado_arbitro = $estado_arbitro;
         return $this;
     }
 }

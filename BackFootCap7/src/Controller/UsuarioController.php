@@ -173,13 +173,21 @@ class UsuarioController extends AbstractController
         $em->persist($reserva);
         $em->flush();
 
-       //CREAMOS EL PARTIDO YA QUE UN PARTIDO SE CREA APARTIR DE UNA RESERVA
+        $em->refresh($reserva);
+
         // Crear partido asociado
         $partido = new Partido();
         $partido->setUsuario($usuario);
         $partido->setCancha($cancha);
         $partido->setReserva($reserva);
         $partido->setEstadoReserva('Denegado'); // Estado inicial
+
+        // Establecer estado_arbitro basado en si se eligió un árbitro o no
+        if ($reserva->getArbitroOpcion()) {
+            $partido->setEstadoArbitro('Pendiente'); // Suponiendo que 'Pendiente' es un estado válido cuando se solicita un árbitro.
+        } else {
+            $partido->setEstadoArbitro('No requerido'); // Si no se necesita árbitro.
+        }
 
         $em->persist($partido);
         $em->flush();
