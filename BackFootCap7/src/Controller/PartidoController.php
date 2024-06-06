@@ -32,8 +32,8 @@ class PartidoController extends AbstractController
             'cancha' => $partido->getCancha()->getId(),
             'reserva' => $partido->getReserva()->getId(),
             'estado' => $partido->getEstadoReserva(),
-
-
         ]);
     }
+
+
 }

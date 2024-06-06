@@ -67,7 +67,4 @@ class ArbitroController extends AbstractController
 
     }
 
-
-    
-
 }
