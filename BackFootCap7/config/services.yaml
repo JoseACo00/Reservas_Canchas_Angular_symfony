@@ -6,6 +6,7 @@
 parameters:
 
     image_directory: '%kernel.project_dir%/public/imagesCanchas'
+    comprobante_directory: '%kernel.project_dir%/public/comprobantes'
 services:
     # default configuration for services in *this* file
     _defaults:

@@ -140,16 +140,18 @@ class AdminController extends AbstractController
 
 
 
-
-    //DELETE DE CANCHA
+    // DELETE DE CANCHA
     #[Route('/Cancha/{cancha_id}/delete', name: 'borrarCancha', methods: ['DELETE'])]
-    public function eliminarCancha(Request $request, $cancha_id,EntityManagerInterface $em, SluggerInterface $slugger)
+    public function eliminarCancha(Request $request, $cancha_id, EntityManagerInterface $em)
     {
-
         $cancha = $this->CanchaRepository->find($cancha_id);
 
-        if(!$cancha){
+        if (!$cancha) {
             return new JsonResponse(['error' => 'La cancha no existe'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        if ($cancha->getDeletedAt() !== null) {
+            return new JsonResponse(['error' => 'La cancha ya fue eleminada'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
         $cancha->setDeletedAt(new \DateTime('now'));
@@ -157,9 +159,9 @@ class AdminController extends AbstractController
         $em->persist($cancha);
         $em->flush();
 
-        return new JsonResponse(['message' => 'La cancha con el nombre: ' .$cancha->getNombre().' fue borrada'], JsonResponse::HTTP_OK);
-
+        return new JsonResponse(['message' => 'La cancha con el nombre: ' . $cancha->getNombre() . ' fue borrada'], JsonResponse::HTTP_OK);
     }
+
 
 
     //EDITAR RESERVA

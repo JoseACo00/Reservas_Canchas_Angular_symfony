@@ -56,8 +56,8 @@ class CanchaType extends AbstractType
                 ]
             ] )
             ->add('imagen', TextType::class, [
-                'required' => false,
-                'attr' => ['placeholder' => 'URL de la imagen']
+                'required' => false
+
             ])
             ->add('disponibilidad', TextType::class, [
                 'required' => true,

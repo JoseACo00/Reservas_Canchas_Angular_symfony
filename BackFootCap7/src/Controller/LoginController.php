@@ -70,6 +70,7 @@ class LoginController extends AbstractController
         // Crear un array de datos del usuario para incluir en el token JWT
         $userData = [
             'email' => $usuario->getEmail(),
+            'id' => $usuario->getId(),
             'name' => $usuario->getName(),
             'rol_id' => $rol->getId(),
             'rolName' => $rol->getNameRol(),
