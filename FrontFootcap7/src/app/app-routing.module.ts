@@ -1,3 +1,5 @@
+import { EditCanchaComponent } from './Admin/edit-cancha/edit-cancha.component';
+import { ReservaCanchaComponent } from './Usuario/reserva-cancha/reserva-cancha.component';
 import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
 import { ServiciosComponent } from './Menu/servicios/servicios.component';
 import { ContactoComponent } from './Menu/contacto/contacto.component';
@@ -13,6 +15,7 @@ import { SobreNosotrosComponent } from './Menu/sobre-nosotros/sobre-nosotros.com
 import { ReservasComponent } from './Menu/reservas/reservas.component';
 import { LogginGuard } from './guards/login-guard.guard';
 import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
+import { EditReservaComponent } from './Usuario/edit-reserva/edit-reserva.component';
 
 const routes: Routes = [
   {path:'Login', component: LoginComponent},
@@ -26,7 +29,10 @@ const routes: Routes = [
   {path: 'Inicio-Footcap7', component: InicioMenuComponent},
   {path: 'Contacto', component: ContactoComponent},
   {path: 'Servicios', component: ServiciosComponent},
-  {path: 'CreateCancha', component: PostCanchaComponent}
+  {path: 'CreateCancha', component: PostCanchaComponent}, //CREAR CANCHA ADMIN
+  {path: 'EditarReserva', component: EditReservaComponent}, //EDITAR RESERVA DE USUARIO
+  {path: 'Cancha/reserva', component: ReservaCanchaComponent}, //USUAIRO RESERVA FORMULARIO
+  {path: 'Editar/Cancha', component: EditCanchaComponent}
 ];
 
 @NgModule({

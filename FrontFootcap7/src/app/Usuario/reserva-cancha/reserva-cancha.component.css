@@ -7,19 +7,16 @@
 
 
 body {
-
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: url('/assets/Image/FotoLogin.png') no-repeat;
+  background-color: rgb(240, 90, 61);
   background-size: cover; /* cubre la imagen el espacio*/
   background-position: center;
-
 }
 
 .createForm {
-
   width: 500px;
   height: auto;
   background: transparent;
@@ -74,7 +71,7 @@ body {
   margin: auto;
   background-color: black;
   color: #fff;
- }
+}
 
 .createForm .btn{
   width: 100%;

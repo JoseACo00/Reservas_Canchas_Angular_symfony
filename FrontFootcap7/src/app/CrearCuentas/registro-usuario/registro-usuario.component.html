@@ -13,37 +13,57 @@
   <div class="mb-5 form-check">
       <label for="name" class="form-label">Nombre</label>
       <input type="text" class="form-control" id="name" name="name" formControlName="name" placeholder="Introducir nombre" required>
+      <div *ngIf="FormUser.get('name')?.touched && FormUser.get('name')?.errors?.['required']" class="alert alert-danger">Este nombre es requerido</div>
+      <div *ngIf="FormUser.get('name')?.touched && FormUser.get('name')?.errors?.['minlength']" class="alert alert-danger">El nombre debe tener al menos 3 caracteres</div>
+      <div *ngIf="FormUser.get('name')?.touched && FormUser.get('name')?.errors?.['maxlength']" class="alert alert-danger">El nombre no debe exceder 45 caracteres</div>
   </div>
 
   <div class="mb-5 form-check">
     <label for="surname1" class="form-label">Primer Apellido</label>
     <input type="text" class="form-control" id="surname1" name="surname1" formControlName="surname1" placeholder="Introduce tú primer Apellido" required>
+    <div *ngIf="FormUser.get('surname1')?.touched && FormUser.get('surname1')?.errors?.['required']" class="alert alert-danger">El 1 apellido es requerido</div>
+    <div *ngIf="FormUser.get('surname1')?.touched && FormUser.get('surname1')?.errors?.['minlength']" class="alert alert-danger">El apellido debe tener al menos 3 caracteres</div>
+    <div *ngIf="FormUser.get('surname1')?.touched && FormUser.get('surname1')?.errors?.['maxlength']" class="alert alert-danger">El apellido no debe exceder 30 caracteres</div>
   </div>
 
   <div class="mb-5 form-check">
     <label for="surname2" class="form-label">Segundo Apellido</label>
     <input type="text" class="form-control" id="surname2" name="surname2" formControlName="surname2" placeholder="Introduce tú primer Apellido">
+    <div *ngIf="FormUser.get('surname2')?.touched && FormUser.get('surname2')?.errors?.['required']" class="alert alert-danger">El 2 apellido es requerido</div>
+    <div *ngIf="FormUser.get('surname2')?.touched && FormUser.get('surname2')?.errors?.['minlength']" class="alert alert-danger">El apellido debe tener al menos 3 caracteres</div>
+    <div *ngIf="FormUser.get('surname2')?.touched && FormUser.get('surname2')?.errors?.['maxlength']" class="alert alert-danger">El apellido no debe exceder 30 caracteres</div>
   </div>
 
   <div class="mb-5 form-check">
       <label for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" name="email" formControlName="email" placeholder="Introduce tú email" required>
+      <div *ngIf="FormUser.get('email')?.touched && FormUser.get('email')?.errors?.['required']" class="alert alert-danger">El email es requerido</div>
+      <div *ngIf="FormUser.get('email')?.touched && FormUser.get('email')?.errors?.['email']" class="alert alert-danger">Por favor ingresa un email válido</div>
   </div>
 
   <div class="mb-5 form-check">
       <label for="password" class="form-label">Password</label>
       <input type="password" class="form-control" id="password" name="password" formControlName="password" placeholder="Introduce el password" required>
+      <div *ngIf="FormUser.get('password')?.touched && FormUser.get('password')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+      <div *ngIf="FormUser.get('password')?.touched && FormUser.get('password')?.errors?.['minlength']" class="alert alert-danger">La contraseña debe tener al menos 6 caracteres</div>
+      <div *ngIf="FormUser.get('password')?.touched && FormUser.get('password')?.errors?.['maxlength']" class="alert alert-danger">La contraseña no debe exceder 50 caracteres</div>
   </div>
+
 
   <div class="mb-5 form-check">
     <label for="age" class="form-label">Edad</label>
     <input type="number" class="form-control" id="age" name="age" formControlName="age" placeholder="Introduce tú edad">
+    <div *ngIf="FormUser.get('age')?.touched && FormUser.get('age')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+    <div *ngIf="FormUser.get('age')?.errors?.['min']" class="alert alert-danger">La edad mínima permitida es 16 años</div>
+    <div *ngIf="FormUser.get('age')?.errors?.['max']" class="alert alert-danger">La edad máxima permitida es 65 años</div>
   </div>
 
   <div class="mb-5 form-check">
       <label for="phone" class="form-label">Teléfono</label>
       <input type="text" class="form-control" id="phone" name="phone" formControlName="phone"  placeholder="Introduce un número telefónico" required>
-
+      <div *ngIf="FormUser.get('phone')?.touched && FormUser.get('phone')?.errors?.['required']" class="alert alert-danger">Este campo es requerido</div>
+      <div *ngIf="FormUser.get('phone')?.touched && FormUser.get('phone')?.errors?.['minlength']" class="alert alert-danger">El teléfono debe tener al menos 9 caracteres</div>
+      <div *ngIf="FormUser.get('phone')?.touched && FormUser.get('phone')?.errors?.['maxlength']" class="alert alert-danger">El teléfono no debe exceder 12 caracteres</div>
   </div>
 
   <div class="d-grid gap-2 col-4 float-end">

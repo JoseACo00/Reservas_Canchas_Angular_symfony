@@ -21,6 +21,12 @@ import { FooterComponent } from './footer/footer.component';
 import { EditCanchaComponent } from './Admin/edit-cancha/edit-cancha.component';
 import { ReservasAdminComponent } from './Admin/reservas-admin/reservas-admin.component';
 import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
+import { ReservaCanchaComponent } from './Usuario/reserva-cancha/reserva-cancha.component';
+import { EditReservaComponent } from './Usuario/edit-reserva/edit-reserva.component';
+import { PartidosArbitroComponent } from './Arbitro/partidos-arbitro/partidos-arbitro.component';
+import { EditarDisponibilidadComponent } from './Arbitro/editar-disponibilidad/editar-disponibilidad.component';
+import { PartidosAdminComponent } from './Admin/partidos-admin/partidos-admin.component';
+import { AsignarPartidoComponent } from './Admin/asignar-partido/asignar-partido.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,14 @@ import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
     ServiciosComponent,
     PartidoComponent,
     FooterComponent,
-    PostCanchaComponent
+    PostCanchaComponent,
+    ReservaCanchaComponent,
+    EditReservaComponent,
+    PartidosArbitroComponent,
+    EditarDisponibilidadComponent,
+    PartidosAdminComponent,
+    EditCanchaComponent,
+    AsignarPartidoComponent,
 
   ],
   imports: [

@@ -1,6 +1,6 @@
 import { AdminService } from './../../services/Admin/admin.service';
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,37 +15,25 @@ export class PostCanchaComponent {
   }
 
   formAddCancha = this.fb.group({
-    'nombre': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(5), Validators.maxLength(120)]], // Permite letras, números y espacios
-    'localidad': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(3), Validators.maxLength(30)]], // Permite letras, números y espacios
-    'direccion': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9 ]*$'), Validators.minLength(5), Validators.maxLength(255)]], // Permite letras, números y espacios
+    'nombre': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(5), Validators.maxLength(120)]], // Permite letras, números y espacios
+    'localidad': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(3), Validators.maxLength(30)]], // Permite letras, números y espacios
+    'direccion': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(5), Validators.maxLength(255)]], // Permite letras, números y espacios
     'precio': ['', [Validators.required, Validators.min(20), Validators.max(120)]],
-    'imagen': ['', [Validators.required, this.imageValidator]],
-    'disponibilidad': ['', [Validators.required]]
-
-  });
-
-  imageValidator(control: AbstractControl): { [key: string]: any } | null {
-    const file = control.value;
-    if (file) {
-      const maxSize = 3000 * 1024; // 3000 KB
-      const allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'heic', 'heif'];
-
-      const size = file.size;
-      const type = file.type;
-
-      if (size > maxSize) {
-        return { 'imageSize': { value: control.value } };
+    'imagen': ['', [Validators.required, this.imageExtensionValidator()]], // Asegúrate de usar this. aquí
+      'disponibilidad': ['', [Validators.required]]
+    });
+      // Función validadora de URL de imagen
+      imageExtensionValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+          const url = control.value;
+          if (!url) {
+            return null;  // retorna null si no hay valor, es decir, no hay error
+          }
+          const pattern = /\.(jpg|jpeg|png|gif)$/i;
+          const isValid = pattern.test(url);
+          return isValid ? null : { invalidExtension: true };  // retorna un error si no es válido
+        };
       }
-
-      // Obtener la extensión del archivo
-      const extension = file.name.split('.').pop()?.toLowerCase();
-
-      if (!extension || !allowedExtensions.includes(extension)) {
-        return { 'imageType': { value: control.value } };
-      }
-    }
-    return null;
-  }
 
 
   crearCancha(){
@@ -55,6 +43,7 @@ export class PostCanchaComponent {
         .subscribe(
           (response) => {
             console.log('Cancha creada:', response);
+            this.router.navigate(['/Canchas']);
             // Puedes agregar aquí lógica adicional después de enviar el formulario
           },
           (error) => {

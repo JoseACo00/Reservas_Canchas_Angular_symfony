@@ -12,27 +12,40 @@
     <form [formGroup]="formAddCancha"  (ngSubmit)="crearCancha()">
           <div class="mb-5 form-check">
               <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" placeholder="Introducir nombre de la  cancha" required>
+              <input type="text" class="form-control" id="nombre" name="nombre" formControlName="nombre" placeholder="Introducir nombre de la  cancha"  required >
+              <div *ngIf="formAddCancha.get('nombre')?.touched && formAddCancha.get('nombre')?.errors?.['required']" class="alert ">Este campo es requerido</div>
+              <div *ngIf="formAddCancha.get('nombre')?.touched && formAddCancha.get('nombre')?.errors?.['minlength']" class="alert ">El nombre debe ser minimo de 5 letras</div>
+              <div *ngIf="formAddCancha.get('nombre')?.touched && formAddCancha.get('nombre')?.errors?.['maxlength']" class="alert ">El nombre debe ser máximo  de 120 letras</div>
           </div>
 
           <div class="mb-5 form-check">
             <label for="localidad" class="form-label">Localidad</label>
             <input type="text" class="form-control" id="localidad" name="localidad" formControlName="localidad" placeholder="Introduce a la localidad que pertenece" required>
+            <div *ngIf="formAddCancha.get('localidad')?.touched && formAddCancha.get('localidad')?.errors?.['required']" class="alert">Este campo es requerido</div>
+            <div *ngIf="formAddCancha.get('localidad')?.touched && formAddCancha.get('localidad')?.errors?.['minlength']" class="alert">La localidad debe tener al menos 3 caracteres</div>
+            <div *ngIf="formAddCancha.get('localidad')?.touched && formAddCancha.get('localidad')?.errors?.['maxlength']" class="alert">La localidad no debe exceder los 30 caracteres</div>
           </div>
 
           <div class="mb-5 form-check">
             <label for="direccion" class="form-label">Direccion</label>
             <input type="text" class="form-control" id="direccion" name="direccion" formControlName="direccion" placeholder="Introduce la direccion del campo ">
+            <div *ngIf="formAddCancha.get('direccion')?.touched && formAddCancha.get('direccion')?.errors?.['required']" class="alert">Este campo es requerido</div>
+            <div *ngIf="formAddCancha.get('direccion')?.touched && formAddCancha.get('direccion')?.errors?.['minlength']" class="alert">La direccion debe tener al menos 5 caracteres</div>
           </div>
 
           <div class="mb-5 form-check">
               <label for="precio" class="form-label">Precio</label>
               <input type="number" class="form-control" id="precio" name="precio" formControlName="precio" placeholder="Introduce el precio del campo" required>
+              <div *ngIf="formAddCancha.get('precio')?.touched && formAddCancha.get('precio')?.errors?.['required']" class="alert">Este campo es requerido</div>
+              <div *ngIf="formAddCancha.get('precio')?.touched && formAddCancha.get('precio')?.errors?.['minlength']" class="alert">El precio mínimo es 20</div>
+              <div *ngIf="formAddCancha.get('precio')?.touched && formAddCancha.get('precio')?.errors?.['maxlength']" class="alert">El precio máximo es 120</div>
           </div>
 
           <div class="mb-5 form-check">
               <label for="imagen" class="form-label">imagenn</label>
-              <input type="file" class="form-control" id="imagen" name="imagen" formControlName="imagen" required>
+              <input type="text" class="form-control" id="imagen" name="imagen" formControlName="imagen" required>
+              <div *ngIf="formAddCancha.get('imagen')?.touched && formAddCancha.get('imagen')?.errors?.['required']" class="alert">Este campo es requerido</div>
+              <div *ngIf="formAddCancha.get('imagen')?.touched && formAddCancha.get('imagen')?.errors?.['invalidExtension']" class="alert">La URL de la imagen debe terminar en .jpg, .jpeg, .png o .gif.</div>
           </div>
           <div class="mb-5 form-check">
             <label for="disponibilidad" class="form-label">Diponibilidad</label>
@@ -42,6 +55,7 @@
               <option value="Fines de semana">Fines de semanas</option>
               <option value="En reformas">En Reformas</option>
             </select>
+            <div *ngIf="formAddCancha.get('disponibilidad')?.touched && formAddCancha.get('disponibilidad')?.errors?.['required']" class="alert">Este campo es requerido</div>
           </div>
           <div class="d-grid gap-2 col-4 float-end">
             <button type="submit"  [disabled]="formAddCancha.invalid" class="btn" >Crear</button>
