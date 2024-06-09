@@ -16,6 +16,11 @@ class CanchaRepository extends ServiceEntityRepository
         parent::__construct($registry, Cancha::class);
     }
 
+    // Método para obtener todos los productos
+    public function findAllCanchas()
+    {
+        return $this->findAll();
+    }
     //    /**
     //     * @return Cancha[] Returns an array of Cancha objects
     //     */

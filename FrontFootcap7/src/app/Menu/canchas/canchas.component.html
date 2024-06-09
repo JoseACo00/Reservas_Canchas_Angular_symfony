@@ -14,6 +14,34 @@
     </div>
   </header>
 
+  <div class="container mt-4">
+    <h2 style="text-align: center;">Listado de Canchas</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Localidad</th>
+          <th>Direccion</th>
+          <th>Precio</th>
+          <th>Imagen</th>
+          <th>Disponibilidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cancha of canchas">
+          <td>{{ cancha.nombre }}</td>
+          <td>{{ cancha.localidad }}</td>
+          <td>{{ cancha.direccion }}</td>
+          <td>{{ cancha.precio }}</td>
+          <td><img [src]="cancha.imagen" alt="{{ cancha.nombre }}" width="200" height="150"></td>
+
+          <td>{{ cancha.disponibilidad }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

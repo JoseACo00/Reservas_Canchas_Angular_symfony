@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Cancha;
+use App\Repository\CanchaRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Attribute\Route;
+
+class CanchaController extends AbstractController
+{
+    private  $CanchaRepository;
+    public  function __construct(EntityManagerInterface $manager, CanchaRepository $CanchaRepository)
+    {
+        $this->CanchaRepository = $CanchaRepository;
+    }
+    //RUTA PARA COGER DATOS DE LA BASSE DE DATOS
+    #[Route('/cargarCanchas', name: 'CargarCanchas', methods: ['GET'])]
+    public function obtenereCanchas(EntityManagerInterface $em)
+    {
+        //findAll devuelve un array de objetos por ello se debe recorrer para leer los datos
+        $cancha = $em->getRepository(Cancha::class)->findAll();
+
+        if(!$cancha){
+            return  new JsonResponse(['Error' => 'No existe datos en la cancha'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $tablaCancha = [];
+        foreach ($cancha as $cancha) {
+            $tablaCancha[] = [
+                'id' => $cancha->getId(),
+                'nombre' => $cancha->getNombre(),
+                'localidad' => $cancha->getLocalidad(),
+                'direccion' => $cancha->getDireccion(),
+                'precio' => $cancha->getPrecio(),
+                'imagen' => $cancha->getImagen(),
+                'disponibilidad' => $cancha->getDisponibilidad(),
+            ];
+        }
+        return new JsonResponse($tablaCancha);
+    }
+
+
+}

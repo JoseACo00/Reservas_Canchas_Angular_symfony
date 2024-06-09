@@ -22,4 +22,11 @@ export class AdminService {
   public addCancha(data:any){
     return this.http.post(this.addcancha,data)
   }
+
+
+  //ELIMINAR CANCHA dependiendo de su ID
+  url1= 'http://localhost:8000/';
+  public deleteCancha(data:any){
+    return this.http.delete(this.url1,data);
+  }
 }
