@@ -10,18 +10,20 @@ import { CargardataService } from 'src/app/services/CargarDatos/cargardata.servi
 })
 export class PartidosAdminComponent {
 
+
   partidos: any[] = [];
   isAdmin: boolean = false;
-  constructor(private router:Router, private cargarDatos: CargardataService, private LoginService: LoginService){}
 
-  ngOnit(){
+  constructor(private router: Router, private cargarDatos: CargardataService, private loginService: LoginService) {}
+
+  ngOnInit(): void {
     this.cargarPartidos();
-    this.isAdmin = this.LoginService.getUserRole() === 'Admin';
+    this.isAdmin = this.loginService.getUserRole() === 'Admin';
   }
 
-  cargarPartidos(){
-    this.cargarDatos.cargarCanchas().subscribe(
-      (data:any) => {
+  cargarPartidos(): void {
+    this.cargarDatos.cargarPartidosAdmin().subscribe(
+      (data: any) => {
         this.partidos = data;
       },
       (error) => {
@@ -29,6 +31,6 @@ export class PartidosAdminComponent {
       }
     );
   }
-
-
 }
+
+

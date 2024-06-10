@@ -17,10 +17,12 @@ export class CargardataService {
     return this.http.get<any>(this.url);
   }
 
-  //2 Cargar los partidos para el ADMIN
-  urlPartidosAdmin = 'http://localhost:8000/cargarPartidos/admin';
+ //2 Cargar los partidos para el ADMIN
+ urlPartidosAdmin = 'http://localhost:8000/cargarPartidos/admin';
 
-  public cargarPartidosAdmin(): Observable<any> {
-    return this.http.get<any>(this.url);
-  }
+ public cargarPartidosAdmin(): Observable<any> {
+   return this.http.get<any>(this.urlPartidosAdmin);
+ }
+
+
 }
