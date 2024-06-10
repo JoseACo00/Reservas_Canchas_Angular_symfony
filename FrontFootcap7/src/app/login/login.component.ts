@@ -79,8 +79,8 @@ export class LoginComponent {
               //SIEMPRE que sn
 
               setTimeout(() => {
-                  this.router.navigate(['/Inicio']);
-              }, 2000);
+                  this.router.navigate(['/Canchas']);
+              })
 
               // this.onSuccess('Inicio de sesión exitoso');
               // setTimeout(()=>{this.router.navigate(['/Inicio'])}, 2000); // Redirige a la página principal después del inicio de sesión

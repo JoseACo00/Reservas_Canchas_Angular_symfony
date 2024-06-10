@@ -6,6 +6,7 @@ use App\Entity\Arbitro;
 use App\Entity\Rol;
 use App\Form\ArbitroType;
 use App\Repository\ArbitroRepository;
+use App\Repository\PartidoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -65,6 +66,31 @@ class ArbitroController extends AbstractController
 
         return new JsonResponse(['status' => 'Arbitro registrado'], JsonResponse::HTTP_CREATED);
 
+    }
+
+    //OBTENER ARBTIROS
+    #[Route('/cargarArbitros', name: 'cargarArbitros', methods: ['GET'])]
+    public function cargarArbitros(EntityManagerInterface $em)
+    {
+
+        $arbitro= $em->getRepository(Arbitro::class)->findAll();
+
+        if(!$arbitro){
+            return new JsonResponse(['error' => 'No existen arbitros'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $ObtenerArbitros=[];
+        foreach ($arbitro as $arbitro){
+            $ObtenerArbitros [] = [
+                'id' => $arbitro->getId(),
+                'name' => $arbitro->getName(),
+                'surname1' => $arbitro->getSurname1(),
+                'email' => $arbitro->getEmail(),
+                'phone' => $arbitro->getPhone(),
+            ];
+        }
+
+        return new JsonResponse($ObtenerArbitros);
     }
 
 }

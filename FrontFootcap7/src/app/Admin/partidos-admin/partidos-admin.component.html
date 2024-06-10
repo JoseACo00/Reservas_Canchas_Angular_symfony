@@ -6,6 +6,10 @@
   <title>Partidos Admin</title>
 </head>
 <body>
+  <br>
+  <br>
+  <br>
+  <br>
   <header class="content header">
     <h1 class="title">partidos de fútbol</h1>
     <div class="btn-home">
@@ -14,37 +18,56 @@
 
   <div class="container mt-4">
     <h2 style="text-align: center;">Listado de partidos</h2>
-    <table class="table">
+    <table *ngIf="isAdmin" class="table table-striped table-bordered">
       <thead>
         <tr>
           <th>Usuario</th>
           <th>Email</th>
-          <th>Arbtitro</th>
+          <th>Árbitro</th>
           <th>Cancha nombre</th>
-          <th>Cancha direccion</th>
+          <th>Cancha dirección</th>
           <th>Fecha</th>
           <th>Hora comienzo</th>
           <th>Hora fin</th>
-          <th>Opcion Arbitro</th>
+          <th>Opción Árbitro</th>
           <th>Estado reserva</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let partido of partidos">
           <td>{{ partido.nombre_Usuario }}</td>
           <td>{{ partido.email_usuario }}</td>
-          <td>{{ partido.arbitro_nombre }}</td>
+          <td>
+            <ng-container *ngIf="partido.opcion_arbitro; else noArbitro">
+              <select (change)="asignarArbitro(partido.id, $event)">
+                <option value="">Asignar Árbitro</option>
+                <option *ngFor="let arbitro of arbitros" [value]="arbitro.id" [selected]="partido.arbitro_nombre === arbitro.name + ' ' + arbitro.surname1">
+                  {{ arbitro.name }} {{ arbitro.surname1 }}
+                </option>
+              </select>
+            </ng-container>
+            <ng-template #noArbitro>No requerido</ng-template>
+          </td>
           <td>{{ partido.cancha_nombre }}</td>
           <td>{{ partido.cancha_direccion }}</td>
           <td>{{ partido.reserva_fecha }}</td>
           <td>{{ partido.hora_reserva }}</td>
           <td>{{ partido.hora_fin }}</td>
-          <td>{{ partido.opcion_arbitro }}</td>
+          <td>{{ partido.opcion_arbitro ? 'Sí' : 'No' }}</td>
           <td>{{ partido.estadoReserva }}</td>
+          <td>
+            <select (change)="actualizarEstado(partido.id, $event)">
+              <option [selected]="partido.estadoReserva === 'Pendiente'" value="Pendiente">Pendiente</option>
+              <option [selected]="partido.estadoReserva === 'Aceptado'" value="Aceptado">Aceptado</option>
+              <option [selected]="partido.estadoReserva === 'Denegado'" value="Denegado">Denegado</option>
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+
 
 </body>
 </html>

@@ -38,8 +38,6 @@
           <td>{{ cancha.disponibilidad }}</td>
           <td>
             <button *ngIf="isAdmin" class="btn btn-primary" (click)="editarCancha(cancha.id)">Editar</button>
-            <!-- <button *ngIf="isAdmin" class="btn btn-danger" (click)="borrarCancha(cancha.id)">Borrar</button>
-            <button *ngIf="isUser" class="btn btn-success" (click)="reservarCancha(cancha.id)">Reservar</button> -->
           </td>
         </tr>
       </tbody>

@@ -34,6 +34,27 @@ export class AdminService {
     return this.http.put(url, data);
   }
 
+  // Editar estado de reserva de partido
+  editarPartidoReserva(partidoId: number, estadoReserva: string): Observable<any>{
+    const url = `http://localhost:8000/partido/${partidoId}/estado`;
+    return this.http.put(url, { estado_reserva: estadoReserva });
+  }
 
+  // Obtener partido
+  obtenerPartido(partidoId:number): Observable<any> {
+    const urlGetPartidos = `http://localhost:8000/partido/${partidoId}`;
+    return this.http.get<any>(urlGetPartidos);
+  }
 
+   // Asignar árbitro a un partido
+   asignarArbitro(partidoId: number, arbitroId: number): Observable<any> {
+    const url = `http://localhost:8000/partido/${partidoId}/asignarArbitro`;
+    return this.http.put(url, { arbitro_id: arbitroId });
+  }
+
+  // Obtener lista de árbitros
+  obtenerArbitros(): Observable<any> {
+    const url = 'http://localhost:8000/cargarArbitros';
+    return this.http.get<any>(url);
+  }
 }
