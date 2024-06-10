@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../services/Loggin/login.service';
+import jwt_decode from 'jwt-decode';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,37 +26,45 @@ export class LoginComponent {
   }
 
 
-  //SE GUARDA EN LOCALSTORAGE o SESION STORAGE DEPENDE DEL CHECK BOX QUE TIENE UN  formControlName="remenberMe"
-  //FALLO TE LO GUARDA EN LOS 2 PUEDE SER UTIL O NO EL TIEMPO LO DIRÁ
-  public onLogin02() {
-    if (this.formLogin.valid) {
-      this.LoginService.Login(this.formLogin.value)
-        .subscribe(
-          (res: any) => {
-            if(this.formLogin.get('remenberMe')?.value) {
-              localStorage.setItem('TokenJWT', res.token);
-            }
-            if (res.token) {
-              sessionStorage.setItem('TokenJWT', res.token);
-              alert('Inicio de sesión exitoso');
-              this.router.navigate(['Inicio']); // Redirige a la página principal después del inicio de sesión
-            } else {
-              alert('Credenciales inválidas');
-            }
-          },
-          (error: { message: string; }) => {
-            alert('Error en la solicitud: ' + error.message);
-          }
-        );
-    } else {
-      alert('Por favor, completa todos los campos del formulario.');
-    }
-  }
+  // public onLogin021() {
+  //   if (this.formLogin.valid) {
+  //     const rememberMe = this.formLogin.get('rememberMe')?.value;
+  //     this.LoginService.login(this.formLogin.value)
+  //       .subscribe(
+  //         (res: any) => {
+  //           if (res.token) {
+  //             const storage = rememberMe ? localStorage : localStorage;
+  //             storage.setItem('TokenJWT', res.token);
+  //             const decodedToken: any = jwt_decode(res.token);
+
+  //             setTimeout(() => {
+  //               // Redirige al usuario basado en su rol
+  //               if (decodedToken.rolName === 'Admin') {
+  //                 this.router.navigate(['/Canchas']);
+  //               } else if (decodedToken.rolName === 'Usuario') {
+  //                 this.router.navigate(['/user-dashboard']);
+  //               } else if (decodedToken.rolName === 'Arbitro') {
+  //                 this.router.navigate(['/arbitro-dashboard']);
+  //               } else {
+  //                 this.router.navigate(['/Inicio']);
+  //               }
+  //             }, 2000);
+  //           }
+  //         },
+  //         (error) => {
+  //           console.error('Error en el inicio de sesión:', error);
+  //           // Manejar errores de autenticación
+  //         }
+  //       );
+  //   } else {
+  //     // Manejar formulario inválido
+  //   }
+  // }
 
   public onLogin021() {
     if (this.formLogin.valid) {
       const rememberMe = this.formLogin.get('remenberMe')?.value;
-      this.LoginService.Login(this.formLogin.value)
+      this.LoginService.login(this.formLogin.value)
         .subscribe(
           (res: any) => {
             if (res.token) {
@@ -64,22 +73,31 @@ export class LoginComponent {
               } else {
                 sessionStorage.setItem('TokenJWT', res.token);
               }
+              //CAMBIAR POR UN INSTANT LOS ALERTS
+              //this.translate.instant(
+
+              //SIEMPRE que sn
+
               setTimeout(() => {
                   this.router.navigate(['/Inicio']);
               }, 2000);
 
               // this.onSuccess('Inicio de sesión exitoso');
-              //setTimeout(()=>{this.router.navigate(['/Inicio'])}, 2000); // Redirige a la página principal después del inicio de sesión
-          }
+              // setTimeout(()=>{this.router.navigate(['/Inicio'])}, 2000); // Redirige a la página principal después del inicio de sesión
+            } else {
 
           }
-        
+
+
+          }
+
         );
     } else {
-     
+
     }
   }
 
-
-
 }
+
+
+

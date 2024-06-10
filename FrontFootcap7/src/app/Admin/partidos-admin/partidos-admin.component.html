@@ -1,1 +1,50 @@
-<p>partidos-admin works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partidos Admin</title>
+</head>
+<body>
+  <header class="content header">
+    <h1 class="title">partidos de fútbol</h1>
+    <div class="btn-home">
+    </div>
+  </header>
+
+  <div class="container mt-4">
+    <h2 style="text-align: center;">Listado de partidos</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Arbtitro</th>
+          <th>Cancha nombre</th>
+          <th>Cancha direccion</th>
+          <th>Fecha</th>
+          <th>Hora comienzo</th>
+          <th>Hora fin</th>
+          <th>Opcion Arbitro</th>
+          <th>Estado reserva</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let partido of partidos">
+          <td>{{ partido.nombre_Usuario }}</td>
+          <td>{{ partido.email_usuario }}</td>
+          <td>{{ partido.arbitro_nombre }}</td>
+          <td>{{ partido.cancha_nombre }}</td>
+          <td>{{ partido.cancha_direccion }}</td>
+          <td>{{ partido.reserva_fecha }}</td>
+          <td>{{ partido.hora_reserva }}</td>
+          <td>{{ partido.hora_fin }}</td>
+          <td>{{ partido.opcion_arbitro ? 'Sí' : 'No' }}</td>
+          <td>{{ partido.estadoReserva }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

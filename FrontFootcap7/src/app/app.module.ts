@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { JwtModule } from "@auth0/angular-jwt";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';

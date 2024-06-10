@@ -43,4 +43,25 @@ class CanchaController extends AbstractController
     }
 
 
+    //Obterner las canchas de de un determinado id
+    #[Route('/cancha/{cancha_id}', name: 'obtener_cancha', methods: ['GET'])]
+    public function obtenerCancha($cancha_id, EntityManagerInterface $em)
+    {
+        $cancha = $em->getRepository(Cancha::class)->find($cancha_id);
+
+        if (!$cancha) {
+            return new JsonResponse(['error' => 'Cancha no encontrada'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse([
+            'id' => $cancha->getId(),
+            'nombre' => $cancha->getNombre(),
+            'localidad' => $cancha->getLocalidad(),
+            'direccion' => $cancha->getDireccion(),
+            'precio' => $cancha->getPrecio(),
+            'imagen' => $cancha->getImagen(),
+            'disponibilidad' => $cancha->getDisponibilidad()
+        ]);
+    }
+
 }

@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Partido;
+use App\Entity\Reserva;
 use App\Repository\PartidoRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
@@ -33,6 +36,35 @@ class PartidoController extends AbstractController
             'reserva' => $partido->getReserva()->getId(),
             'estado' => $partido->getEstadoReserva(),
         ]);
+    }
+
+    //Obtner todos los partidos para admin
+    #[Route('/cargarPartidos/admin', name: 'CargarPartidos', methods: ['GET'])]
+    public function cargarPartidos(EntityManagerInterface $em): JsonResponse
+    {
+        $partidos = $em->getRepository(Partido::class)->findAll();
+
+        if(!$partidos){
+            return new JsonResponse(['error' => 'No hay partidos en la base de datos'], JsonResponse::HTTP_NOT_FOUND);
+        }
+
+        $tablaPartidos = [];
+        foreach ($partidos as $partido){
+            $tablaPartidos[] = [
+                'id' => $partido->getId(),
+                'nombre_Usuario' => $partido->getUsuario()->getName(),
+                'email_usuario' => $partido->getUsuario()->getEmail(),
+                'arbitro_nombre' => $partido->getArbitro()->getName(),
+                'cancha_nombre' => $partido->getCancha()->getNombre(),
+                'cancha_direccion' => $partido->getCancha()->getDireccion(),
+                'reserva_fecha' => $partido->getReserva()->getFechaReserva(),
+                'hora_reserva' => $partido->getReserva()->getHoraReserva(),
+                'hora_fin' => $partido->getReserva()->getHoraFin(),
+                'opcion_arbitrol' => $partido->getReserva()->getArbitroOpcion(),
+                'estadoReserva' => $partido->getEstadoReserva()
+            ];
+        }
+        return new JsonResponse($tablaPartidos);
     }
 
 

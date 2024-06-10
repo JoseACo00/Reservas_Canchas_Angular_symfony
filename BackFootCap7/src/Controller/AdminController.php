@@ -174,8 +174,6 @@ class AdminController extends AbstractController
 
 
     //EDITAR RESERVA
-
-
     #[Route('/partido/{partido_id}/asignarArbitro', name: 'AsignarArbitro', methods: ['PUT'])]
     public function asignarArbitro(Request $request, $partido_id, EntityManagerInterface $em): JsonResponse
     {

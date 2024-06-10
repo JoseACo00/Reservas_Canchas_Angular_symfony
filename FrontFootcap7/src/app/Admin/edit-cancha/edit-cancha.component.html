@@ -9,7 +9,7 @@
 <body>
 
   <div class="createForm">
-    <h2 style="text-align: center;">Crear Canchas</h2>
+    <h2 style="text-align: center;">Editar Cancha: {{ canchaNombre }}</h2>
     <form  [formGroup]="formEditCanchas" (ngSubmit)="procesar()">
           <div class="mb-5 form-check">
               <label for="nombre" class="form-label">Nombre</label>
@@ -59,7 +59,7 @@
             <div *ngIf="formEditCanchas.get('disponibilidad')?.touched && formEditCanchas.get('disponibilidad')?.errors?.['required']" class="alert">Este campo es requerido</div>
           </div>
           <div class="d-grid gap-2 col-4 float-end">
-            <button type="submit"  [disabled]="formEditCanchas.invalid" class="btn" >Crear</button>
+            <button type="submit" [disabled]="formEditCanchas.invalid" class="btn">Guardar Cambios</button>
         </div>
     </form>
 </div>
