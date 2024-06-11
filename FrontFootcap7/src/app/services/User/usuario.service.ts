@@ -31,4 +31,10 @@ export class UsuarioService {
     const url = `http://localhost:8000/usuario/${usuarioId}/reservas`;
     return this.http.get(url);
   }
+
+    // Obtener partidos del usuario
+    obtenerPartidosUsuario(usuarioId: number): Observable<any> {
+      const url = `http://localhost:8000/partidos/Usuario/${usuarioId}`;
+      return this.http.get(url);
+    }
 }

@@ -7,7 +7,7 @@
  </head>
  <body>
   <div class="createForm">
-    <h2 style="text-align: center;">Reservar Cancha</h2>
+    <h2 style="text-align: center;">Editar  Reserva</h2>
     <form [formGroup]="formEditReserva" (ngSubmit)="procesar()">
           <div class="mb-5 form-check">
               <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
@@ -39,7 +39,6 @@
               <option value="Metálico">Metálico</option>
               <option value="Transferencia bancaria">Transferencia bancaria</option>
             </select>
-
           </div>
           <div class="d-grid gap-2 col-4 float-end">
             <button type="submit"   class="btn" >Crear</button>

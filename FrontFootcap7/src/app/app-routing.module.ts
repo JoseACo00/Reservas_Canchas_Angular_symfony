@@ -19,6 +19,7 @@ import { InicioMenuComponent } from './Menu/inicio-menu/inicio-menu.component';
 import { EditReservaComponent } from './Usuario/edit-reserva/edit-reserva.component';
 import { PartidoComponent } from './Menu/partido/partido.component';
 import { PartidosAdminComponent } from './Admin/partidos-admin/partidos-admin.component';
+import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
 
 const routes: Routes = [
   {path:'Login', component: LoginComponent},
@@ -39,6 +40,7 @@ const routes: Routes = [
   {path: 'Partidos', component: PartidoComponent},
   {path: 'PartidosAdmin', component: PartidosAdminComponent},
   { path: 'Usuario/reservas', component: ListaReservaUsuarioComponent },
+  { path: 'Usuario/partidos', component: PartidosUsuarioComponent },
 ];
 
 @NgModule({

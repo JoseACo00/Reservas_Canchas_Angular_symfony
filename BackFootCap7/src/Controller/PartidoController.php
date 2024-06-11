@@ -68,4 +68,41 @@ class PartidoController extends AbstractController
     }
 
 
+    //ENDPOINT PARA QUE EL USUARIO PUEDA VISUALIZAR SUS PARTIDOS
+    #[Route('/partidos/Usuario/{usuario_id}', name: 'CargarPartidosUsuario', methods: ['GET'])]
+    public function mostrarPartidosDeUsuario(EntityManagerInterface $em, $usuario_id)
+    {
+        $queryBuilder = $em->getRepository(Partido::class)->createQueryBuilder('p')
+            ->join('p.reserva', 'r')
+            ->where('p.usuario = :usuario_id')
+            ->andWhere('p.deleted_at IS NULL')
+            ->andWhere('r.deleted_at IS NULL')
+            ->setParameter('usuario_id', $usuario_id)
+            ->getQuery();
+
+        $partidos = $queryBuilder->getResult();
+
+        if (!$partidos) {
+            return new JsonResponse(['error' => 'No se encontraron partidos para este usuario'], 404);
+        }
+
+        $partidosData = [];
+        foreach ($partidos as $partido) {
+            $partidosData[] = [
+                'id' => $partido->getId(),
+                'nombre_usuario' => $partido->getUsuario()->getName(),
+                'email_usuario' => $partido->getUsuario()->getEmail(),
+                'arbitro_nombre' => $partido->getArbitro() ? $partido->getArbitro()->getName() . ' ' . $partido->getArbitro()->getSurname1() : 'No asignado',
+                'cancha_nombre' => $partido->getCancha()->getNombre(),
+                'cancha_direccion' => $partido->getCancha()->getDireccion(),
+                'reserva_fecha' => $partido->getReserva()->getFechaReserva()->format('Y-m-d'),
+                'hora_reserva' => $partido->getReserva()->getHoraReserva(),
+                'hora_fin' => $partido->getReserva()->getHoraFin(),
+                'opcion_arbitro' => $partido->getReserva()->getArbitroOpcion(),
+                'estado_reserva' => $partido->getEstadoReserva(),
+            ];
+        }
+
+        return new JsonResponse($partidosData);
+    }
 }
