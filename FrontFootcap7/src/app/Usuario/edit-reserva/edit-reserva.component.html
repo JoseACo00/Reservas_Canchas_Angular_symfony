@@ -6,45 +6,48 @@
   <title>Editar Reserva</title>
  </head>
  <body>
+
   <div class="createForm">
-    <h2 style="text-align: center;">Editar  Reserva</h2>
+    <h2 style="text-align: center;">Editar Reserva</h2>
     <form [formGroup]="formEditReserva" (ngSubmit)="procesar()">
-          <div class="mb-5 form-check">
-              <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
-              <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" formControlName="fecha_reserva" placeholder="Introducir la fecha de la reserva"  required >
-          </div>
+      <div class="mb-5 form-check">
+        <label for="fecha_reserva" class="form-label">Fecha de reserva</label>
+        <input type="date" class="form-control" id="fecha_reserva" name="fecha_reserva" formControlName="fecha_reserva" required>
+      </div>
 
-          <div class="mb-5 form-check">
-            <label for="hora_reserva" class="form-label">Hora de inicio</label>
-            <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" formControlName="hora_reserva" placeholder="Introduce a la hora_reserva que pertenece" required>
+      <div class="mb-5 form-check">
+        <label for="hora_reserva" class="form-label">Hora de inicio</label>
+        <input type="time" class="form-control" id="hora_reserva" name="hora_reserva" formControlName="hora_reserva" required>
+      </div>
 
-          </div>
+      <div class="mb-5 form-check">
+        <label for="hora_fin" class="form-label">Hora fin</label>
+        <input type="time" class="form-control" id="hora_fin" name="hora_fin" formControlName="hora_fin" required>
+      </div>
 
-          <div class="mb-5 form-check">
-            <label for="hora_fin" class="form-label">Hora fin </label>
-            <input type="time" class="form-control" id="hora_fin" name="hora_fin" formControlName="hora_fin" placeholder="Introduce la hora_fin del campo ">
-          </div>
+      <div class="mb-5 form-check">
+        <label for="arbitro_opcion">Incluir Árbitro</label>
+        <select id="arbitro_opcion" formControlName="arbitro_opcion" class="form-control">
+          <option [value]="true">Sí</option>
+          <option [value]="false">No</option>
+        </select>
+      </div>
 
-          <div class="mb-5 form-check">
-            <label for="arbitro_opcion">Incluir Árbitro</label>
-            <select id="arbitro_opcion" formControlName="arbitro_opcion" class="form-control">
-              <option value="true">Sí</option>
-              <option value="false">No</option>
-            </select>
-          </div>
-          <div class="mb-5 form-check">
-            <label for="metodo_pago" class="form-label">Metodo de pago </label>
-            <select id="metodo_pago" class="form-control" name="metodo_pago" formControlName="metodo_pago"   required>
-              <option value="Bizum">Bizum</option>
-              <option value="Metálico">Metálico</option>
-              <option value="Transferencia bancaria">Transferencia bancaria</option>
-            </select>
-          </div>
-          <div class="d-grid gap-2 col-4 float-end">
-            <button type="submit"   class="btn" >Crear</button>
-        </div>
+      <div class="mb-5 form-check">
+        <label for="metodo_pago" class="form-label">Método de pago</label>
+        <select id="metodo_pago" class="form-control" name="metodo_pago" formControlName="metodo_pago" required>
+          <option value="Bizum">Bizum</option>
+          <option value="Metálico">Metálico</option>
+          <option value="Transferencia bancaria">Transferencia bancaria</option>
+        </select>
+      </div>
+
+      <div class="d-grid gap-2 col-4 float-end">
+        <button type="submit" class="btn" [disabled]="formEditReserva.invalid">Actualizar</button>
+      </div>
     </form>
   </div>
+
 
  </body>
  </html>

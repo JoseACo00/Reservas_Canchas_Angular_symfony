@@ -58,5 +58,11 @@ export class AdminService {
     return this.http.get<any>(url);
   }
 
+   // Eliminar cancha
+   eliminarCancha(canchaId: number): Observable<any> {
+    const url = `http://localhost:8000/Cancha/${canchaId}/delete`;
+    return this.http.delete(url);
+  }
+
 
 }

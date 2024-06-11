@@ -34,7 +34,7 @@ const routes: Routes = [
   {path: 'Contacto', component: ContactoComponent},
   {path: 'Servicios', component: ServiciosComponent},
   {path: 'CreateCancha', component: PostCanchaComponent}, //CREAR CANCHA ADMIN
-  {path: 'EditarReserva', component: EditReservaComponent}, //EDITAR RESERVA DE USUARIO
+  { path: 'Usuario/reserva/:reserva_id/cancha/:cancha_id/editar', component: EditReservaComponent }, // EDITAR RESERVA DE USUARIO
   { path: 'Reservar/Cancha/:id', component: ReservaCanchaComponent }, //USUAIRO RESERVA FORMULARIO
   { path: 'Editar/Cancha/:id', component: EditCanchaComponent },
   {path: 'Partidos', component: PartidoComponent},

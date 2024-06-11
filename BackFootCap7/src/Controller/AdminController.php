@@ -154,6 +154,7 @@ class AdminController extends AbstractController
     #[Route('/Cancha/{cancha_id}/delete', name: 'borrarCancha', methods: ['DELETE'])]
     public function eliminarCancha(Request $request, $cancha_id, EntityManagerInterface $em)
     {
+        //$user = $this->getUser();
         $cancha = $this->CanchaRepository->find($cancha_id);
 
         if (!$cancha) {
@@ -164,7 +165,9 @@ class AdminController extends AbstractController
             return new JsonResponse(['error' => 'La cancha ya fue eleminada'], JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        // Obtener el usuario autenticado
         $cancha->setDeletedAt(new \DateTime('now'));
+//        $cancha->setDeletedBy($user->getId());
 
         $em->persist($cancha);
         $em->flush();

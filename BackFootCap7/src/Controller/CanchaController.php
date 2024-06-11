@@ -20,15 +20,20 @@ class CanchaController extends AbstractController
     #[Route('/cargarCanchas', name: 'CargarCanchas', methods: ['GET'])]
     public function obtenereCanchas(EntityManagerInterface $em)
     {
-        //findAll devuelve un array de objetos por ello se debe recorrer para leer los datos
-        $cancha = $em->getRepository(Cancha::class)->findAll();
+        $qb = $em->createQueryBuilder();
 
-        if(!$cancha){
-            return  new JsonResponse(['Error' => 'No existe datos en la cancha'], JsonResponse::HTTP_NOT_FOUND);
+        $qb->select('c')
+            ->from(Cancha::class, 'c')
+            ->where('c.deleted_at IS NULL');
+
+        $canchas = $qb->getQuery()->getResult();
+
+        if (!$canchas) {
+            return new JsonResponse(['Error' => 'No existe datos en la cancha'], JsonResponse::HTTP_NOT_FOUND);
         }
 
         $tablaCancha = [];
-        foreach ($cancha as $cancha) {
+        foreach ($canchas as $cancha) {
             $tablaCancha[] = [
                 'id' => $cancha->getId(),
                 'nombre' => $cancha->getNombre(),
@@ -39,8 +44,10 @@ class CanchaController extends AbstractController
                 'disponibilidad' => $cancha->getDisponibilidad(),
             ];
         }
+
         return new JsonResponse($tablaCancha);
     }
+
 
 
     //Obterner las canchas de de un determinado id

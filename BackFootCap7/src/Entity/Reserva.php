@@ -33,7 +33,7 @@ class Reserva
     #[ORM\Column]
     private ?bool $arbitro_opcion = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column(length: 30)]
     private ?string $metodo_pago = null;
 
     #[ORM\Column(length: 255, nullable: true)]

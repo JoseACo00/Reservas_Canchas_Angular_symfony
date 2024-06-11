@@ -16,7 +16,6 @@
     <div class="btn-home">
     </div>
   </header>
-
   <div class="table-responsive">
     <h2 style="text-align: center;">Listado de reservas del usuario</h2>
     <table class="table">
@@ -27,6 +26,7 @@
           <th>Hora fin</th>
           <th>Opción Árbitro</th>
           <th>Método de pago</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
@@ -34,12 +34,36 @@
           <td>{{ reserva.fecha_reserva }}</td>
           <td>{{ reserva.hora_reserva }}</td>
           <td>{{ reserva.hora_fin }}</td>
-          <td>{{ reserva.arbitro_opcion ? 'Quiero' : 'No quiero'}}</td>
+          <td>{{ reserva.arbitro_opcion ? 'Quiero' : 'No quiero' }}</td>
           <td>{{ reserva.metodo_pago }}</td>
+          <td>
+            <button class="btn btn-primary" (click)="editarReserva(reserva.id, reserva.cancha.id)">Editar</button>
+            <button (click)="openCancelModal(reserva.id, reserva.cancha.id)" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelModal">Cancelar</button>
+          </td>
         </tr>
       </tbody>
     </table>
+
+    <!-- Modal -->
+  <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="cancelModalLabel">Confirmar cancelación</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Estás seguro de que quieres cancelar esta reserva?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmCancel()">Confirmar</button>
+        </div>
+      </div>
+    </div>
   </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

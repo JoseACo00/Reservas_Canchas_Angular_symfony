@@ -309,8 +309,23 @@ class UsuarioController extends AbstractController
             return new JsonResponse(['error' => 'No tienes permiso para eliminar esta reserva'], JsonResponse::HTTP_FORBIDDEN);
         }
 
-        $em->remove($reserva);
+        // Obtener el usuario autenticado
+        $usuario = $this->security->getUser();
+
+        $reserva->setDeletedAt(new \DateTime('now'));
+        $reserva->setDeletedBy($usuario);
+
+        // Actualizar el campo deleted_at del partido asociado
+        $partido = $em->getRepository(Partido::class)->findOneBy(['reserva' => $reserva]);
+        if ($partido) {
+            $partido->setDeletedAt(new \DateTime('now'));
+            $partido->setDeletedBy($usuario);
+            $em->persist($partido);
+        }
+
+        $em->persist($reserva);
         $em->flush();
+
 
         return new JsonResponse(['success' => 'Reserva eliminada correctamente'], JsonResponse::HTTP_OK);
     }
