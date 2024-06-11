@@ -29,6 +29,8 @@ import { EditarDisponibilidadComponent } from './Arbitro/editar-disponibilidad/e
 import { PartidosAdminComponent } from './Admin/partidos-admin/partidos-admin.component';
 import { AsignarPartidoComponent } from './Admin/asignar-partido/asignar-partido.component';
 import { EditarPartidoComponent } from './Admin/editar-partido/editar-partido.component';
+import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
+import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +58,8 @@ import { EditarPartidoComponent } from './Admin/editar-partido/editar-partido.co
     EditCanchaComponent,
     AsignarPartidoComponent,
     EditarPartidoComponent,
+    ListaReservaUsuarioComponent,
+    PartidosUsuarioComponent,
 
   ],
   imports: [

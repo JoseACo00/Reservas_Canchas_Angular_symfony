@@ -57,4 +57,6 @@ export class AdminService {
     const url = 'http://localhost:8000/cargarArbitros';
     return this.http.get<any>(url);
   }
+
+
 }

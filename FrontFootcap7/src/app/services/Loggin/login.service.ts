@@ -40,6 +40,11 @@ export class LoginService {
     return decodedToken ? decodedToken.rolName : null;
   }
 
+  public getUserId(): number | null {
+    const decodedToken = this.getDecodedToken();
+    return decodedToken ? decodedToken.id : null;
+  }
+
   public isLoggedIn(): boolean {
     return this.getToken() !== null;
   }

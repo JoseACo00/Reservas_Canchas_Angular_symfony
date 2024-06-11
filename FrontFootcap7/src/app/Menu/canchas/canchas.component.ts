@@ -10,6 +10,7 @@ import { LoginService } from 'src/app/services/Loggin/login.service';
   styleUrls: ['./canchas.component.css']
 })
 export class CanchasComponent  implements OnInit{
+[x: string]: any;
 
   canchas: any[] = [];
   isAdmin: boolean = false;
@@ -39,6 +40,9 @@ export class CanchasComponent  implements OnInit{
     this.router.navigate(['/Editar/Cancha', id]);
   }
 
+  reservarCancha(id: number) {
+    this.router.navigate(['/Reservar/Cancha', id]);
+  }
 
   // ngOnInit(): void {
   //   this.cargarDatos.cargarCanchas().subscribe(data => {

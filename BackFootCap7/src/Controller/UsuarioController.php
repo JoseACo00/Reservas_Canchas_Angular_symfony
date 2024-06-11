@@ -180,7 +180,7 @@ class UsuarioController extends AbstractController
         $partido->setUsuario($usuario);
         $partido->setCancha($cancha);
         $partido->setReserva($reserva);
-        $partido->setEstadoReserva('Denegado'); // Estado inicial
+        $partido->setEstadoReserva('Pendiente'); // Estado inicial
 
         // Establecer estado_arbitro basado en si se eligió un árbitro o no
         if ($reserva->getArbitroOpcion()) {
@@ -289,7 +289,6 @@ class UsuarioController extends AbstractController
     }
 
     //BORRAR/CANCELAR UNA RESERVA
-
     #[Route('/reserva/{reserva_id}/eliminar', name: 'eliminar_reserva', methods: ['DELETE'])]
     public function eliminarReserva($reserva_id, Request $request, EntityManagerInterface $em): JsonResponse
     {

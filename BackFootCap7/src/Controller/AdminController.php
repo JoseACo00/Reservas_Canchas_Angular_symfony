@@ -147,7 +147,7 @@ class AdminController extends AbstractController
         }
     }
 
-    //Delete 
+    //Delete
 
 
     // DELETE DE CANCHA

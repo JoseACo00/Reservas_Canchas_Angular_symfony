@@ -1,3 +1,4 @@
+import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
 import { EditCanchaComponent } from './Admin/edit-cancha/edit-cancha.component';
 import { ReservaCanchaComponent } from './Usuario/reserva-cancha/reserva-cancha.component';
 import { PostCanchaComponent } from './Admin/post-cancha/post-cancha.component';
@@ -33,10 +34,11 @@ const routes: Routes = [
   {path: 'Servicios', component: ServiciosComponent},
   {path: 'CreateCancha', component: PostCanchaComponent}, //CREAR CANCHA ADMIN
   {path: 'EditarReserva', component: EditReservaComponent}, //EDITAR RESERVA DE USUARIO
-  {path: 'Cancha/reserva', component: ReservaCanchaComponent}, //USUAIRO RESERVA FORMULARIO
+  { path: 'Reservar/Cancha/:id', component: ReservaCanchaComponent }, //USUAIRO RESERVA FORMULARIO
   { path: 'Editar/Cancha/:id', component: EditCanchaComponent },
   {path: 'Partidos', component: PartidoComponent},
-  {path: 'PartidosAdmin', component: PartidosAdminComponent}
+  {path: 'PartidosAdmin', component: PartidosAdminComponent},
+  { path: 'Usuario/reservas', component: ListaReservaUsuarioComponent },
 ];
 
 @NgModule({
