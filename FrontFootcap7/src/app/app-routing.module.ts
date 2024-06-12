@@ -20,8 +20,11 @@ import { EditReservaComponent } from './Usuario/edit-reserva/edit-reserva.compon
 import { PartidoComponent } from './Menu/partido/partido.component';
 import { PartidosAdminComponent } from './Admin/partidos-admin/partidos-admin.component';
 import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
+import { AdminGuard } from './guards/Admin/admin.guard';
+import { UsuarioGuard } from './guards/User/usuario.guard';
 
 const routes: Routes = [
+  //SIN REGISTRAR
   {path:'Login', component: LoginComponent},
   {path: 'registro-Usuario', component: RegistroUsuarioComponent},
   {path: 'registro-Admin', component: RegistroAdminComponent},
@@ -30,17 +33,20 @@ const routes: Routes = [
   {path: 'Canchas', component: CanchasComponent },
   {path: 'Sobre-Nosotros', component: SobreNosotrosComponent},
   {path: 'Reservas', component: ReservasComponent},
-  {path: 'Inicio-Footcap7', component: InicioMenuComponent},
   {path: 'Contacto', component: ContactoComponent},
   {path: 'Servicios', component: ServiciosComponent},
-  {path: 'CreateCancha', component: PostCanchaComponent}, //CREAR CANCHA ADMIN
-  { path: 'Usuario/reserva/:reserva_id/cancha/:cancha_id/editar', component: EditReservaComponent }, // EDITAR RESERVA DE USUARIO
-  { path: 'Reservar/Cancha/:id', component: ReservaCanchaComponent }, //USUAIRO RESERVA FORMULARIO
-  { path: 'Editar/Cancha/:id', component: EditCanchaComponent },
+
+ //RUTAS PARA ADMIN
+ { path: 'CreateCancha', component: PostCanchaComponent, canActivate: [ AdminGuard] }, //CREAR CANCHA ADMIN
+ { path: 'Editar/Cancha/:id', component: EditCanchaComponent, canActivate: [AdminGuard] },
+ { path: 'PartidosAdmin', component: PartidosAdminComponent, canActivate: [AdminGuard] },
+
+  //ACIONES DE USUARIO
+  { path: 'Reservar/Cancha/:id', component: ReservaCanchaComponent , canActivate: [ UsuarioGuard]}, //USUAIRO RESERVA FORMULARIO
+  { path: 'Usuario/reserva/:reserva_id/cancha/:cancha_id/editar', component: EditReservaComponent, canActivate: [ UsuarioGuard] }, // EDITAR RESERVA DE USUARIO
   {path: 'Partidos', component: PartidoComponent},
-  {path: 'PartidosAdmin', component: PartidosAdminComponent},
-  { path: 'Usuario/reservas', component: ListaReservaUsuarioComponent },
-  { path: 'Usuario/partidos', component: PartidosUsuarioComponent },
+  { path: 'Usuario/reservas', component: ListaReservaUsuarioComponent, canActivate: [ UsuarioGuard] },
+  { path: 'Usuario/partidos', component: PartidosUsuarioComponent, canActivate: [ UsuarioGuard] },
 ];
 
 @NgModule({

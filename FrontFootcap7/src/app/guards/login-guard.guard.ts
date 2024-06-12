@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 
 export const LogginGuard = () => {
   const router = inject(Router)
+
+  //Saber si tiene el jwt
   if (localStorage.getItem('TokenJWT')|| sessionStorage.getItem('TokenJWT')){
     return true;
   } else {
@@ -12,4 +14,13 @@ export const LogginGuard = () => {
       router.navigate(['Login']);
     return false;
   }
+
+
+  //Para saber que tiene el rol admin
+
+
+  //Para saber que tiene rol Usuario
+
+  //Para saber que tiene rol arbitro
+
 }

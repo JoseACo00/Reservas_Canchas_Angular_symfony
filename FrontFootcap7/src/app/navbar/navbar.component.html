@@ -22,7 +22,21 @@
             <li><a href="Servicios">Servicios</a></li>
             <li><a href="Canchas">Canchas</a></li>
             <li><a href="Contacto">Contacto</a></li>
-            <li><a href="Login">Login</a></li>
+            <li *ngIf="!isLoggedIn"><a routerLink="/Login">Login</a></li>
+
+            <li *ngIf="isUser"><a href="#">Usuario</a>
+              <ul>
+                <li><a routerLink="/Usuario/reservas">Mis Reservas</a></li>
+                <li><a routerLink="/Usuario/partidos">Mis Partidos</a></li>
+              </ul>
+            </li>
+
+            <li *ngIf="isAdmin"><a href="#">Admin</a>
+              <ul>
+                <li><a routerLink="/PartidosAdmin">Partidos</a></li>
+              </ul>
+            </li>
+            <li *ngIf="isLoggedIn"><a href="Login" (click)="logout()">Salir</a></li>
         </ul>
     </nav>
   </header>
