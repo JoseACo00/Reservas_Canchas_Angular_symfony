@@ -16,7 +16,6 @@
     <div class="btn-home">
     </div>
   </header>
-
   <div class="table-responsive">
     <h2 style="text-align: center;">Listado de partidos</h2>
     <table *ngIf="isAdmin" class="table">
@@ -41,7 +40,7 @@
           <td>{{ partido.email_usuario }}</td>
           <td>
             <ng-container *ngIf="partido.opcion_arbitro; else noArbitro">
-              <select (change)="asignarArbitro(partido.id, $event)">
+              <select [disabled]="!partido.editMode" (change)="partido.arbitroId = $any($event.target).value">
                 <option value="">Asignar Árbitro</option>
                 <option *ngFor="let arbitro of arbitros" [value]="arbitro.id" [selected]="partido.arbitro_nombre === arbitro.name + ' ' + arbitro.surname1">
                   {{ arbitro.name }} {{ arbitro.surname1 }}
@@ -56,13 +55,16 @@
           <td>{{ partido.hora_reserva }}</td>
           <td>{{ partido.hora_fin }}</td>
           <td>{{ partido.opcion_arbitro ? 'Sí' : 'No' }}</td>
-          <td>{{ partido.estadoReserva }}</td>
           <td>
-            <select (change)="actualizarEstado(partido.id, $event)">
+            <select [disabled]="!partido.editMode" (change)="partido.estadoReserva = $any($event.target).value">
               <option [selected]="partido.estadoReserva === 'Pendiente'" value="Pendiente">Pendiente</option>
               <option [selected]="partido.estadoReserva === 'Aceptado'" value="Aceptado">Aceptado</option>
               <option [selected]="partido.estadoReserva === 'Denegado'" value="Denegado">Denegado</option>
             </select>
+          </td>
+          <td>
+            <button *ngIf="!partido.editMode" class="btn btn-primary" (click)="enableEdit(partido)">Editar</button>
+            <button *ngIf="partido.editMode" class="btn btn-success" (click)="guardarCambios(partido)">Guardar</button>
           </td>
         </tr>
       </tbody>

@@ -48,14 +48,15 @@ class PartidoController extends AbstractController
 
         $tablaPartidos = [];
         foreach ($partidos as $partido) {
+            $arbitro = $partido->getArbitro();
             $tablaPartidos[] = [
                 'id' => $partido->getId(),
                 'nombre_Usuario' => $partido->getUsuario()->getName(),
                 'email_usuario' => $partido->getUsuario()->getEmail(),
-                'arbitro_nombre' => $partido->getArbitro() ? $partido->getArbitro()->getName() : null,
+                'arbitro_nombre' => $arbitro ? $arbitro->getName() . ' ' . $arbitro->getSurname1() : null,
                 'cancha_nombre' => $partido->getCancha()->getNombre(),
                 'cancha_direccion' => $partido->getCancha()->getDireccion(),
-                'reserva_fecha' => $partido->getReserva()->getFechaReserva(),
+                'reserva_fecha' => $partido->getReserva()->getFechaReserva()->format('Y-m-d'),
                 'hora_reserva' => $partido->getReserva()->getHoraReserva(),
                 'hora_fin' => $partido->getReserva()->getHoraFin(),
                 'opcion_arbitro' => $partido->getReserva()->getArbitroOpcion(),

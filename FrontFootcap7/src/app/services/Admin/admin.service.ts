@@ -35,9 +35,15 @@ export class AdminService {
   }
 
   // Editar estado de reserva de partido
-  editarPartidoReserva(partidoId: number, estadoReserva: string): Observable<any>{
+  // editarPartidoReserva(partidoId: number, estadoReserva: string): Observable<any>{
+  //   const url = `http://localhost:8000/partido/${partidoId}/estado`;
+  //   return this.http.put(url, { estado_reserva: estadoReserva });
+  // }
+
+  // Editar estado de reserva de partido
+  editarPartidoReserva(partidoId: number, data: any): Observable<any> {
     const url = `http://localhost:8000/partido/${partidoId}/estado`;
-    return this.http.put(url, { estado_reserva: estadoReserva });
+    return this.http.put(url, data);
   }
 
   // Obtener partido
@@ -63,6 +69,8 @@ export class AdminService {
     const url = `http://localhost:8000/Cancha/${canchaId}/delete`;
     return this.http.delete(url);
   }
+
+
 
 
 }

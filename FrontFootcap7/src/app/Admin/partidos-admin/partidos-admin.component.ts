@@ -28,7 +28,7 @@ export class PartidosAdminComponent {
   cargarPartidos(): void {
     this.cargarDatos.cargarPartidosAdmin().subscribe(
       (data: any) => {
-        this.partidos = data;
+        this.partidos = data.map((partido: any) => ({ ...partido, editMode: false }));
       },
       (error) => {
         console.error('Error al cargar los partidos:', error);
@@ -47,12 +47,19 @@ export class PartidosAdminComponent {
     );
   }
 
-  actualizarEstado(partidoId: number, event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const estado = target.value;
-    this.adminService.editarPartidoReserva(partidoId, estado).subscribe(
+  enableEdit(partido: any): void {
+    partido.editMode = true;
+  }
+
+  guardarCambios(partido: any): void {
+    const updateData = {
+      estado_reserva: partido.estadoReserva,
+      arbitroId: partido.arbitroId
+    };
+    this.adminService.editarPartidoReserva(partido.id, updateData).subscribe(
       res => {
         console.log('Estado actualizado:', res);
+        partido.editMode = false;
         this.cargarPartidos(); // Recargar la lista de partidos
       },
       error => {
@@ -61,11 +68,7 @@ export class PartidosAdminComponent {
     );
   }
 
-
-
-  asignarArbitro(partidoId: number, event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    const arbitroId = +target.value;
+  asignarArbitro(partidoId: number, arbitroId: number): void {
     this.adminService.asignarArbitro(partidoId, arbitroId).subscribe(
       res => {
         console.log('Árbitro asignado:', res);
@@ -76,8 +79,6 @@ export class PartidosAdminComponent {
       }
     );
   }
-
-
 }
 
 
