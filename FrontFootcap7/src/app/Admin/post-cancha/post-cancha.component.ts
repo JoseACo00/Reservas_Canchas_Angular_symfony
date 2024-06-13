@@ -17,7 +17,7 @@ export class PostCanchaComponent {
   formAddCancha = this.fb.group({
     'nombre': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(5), Validators.maxLength(120)]], // Permite letras, números y espacios
     'localidad': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(3), Validators.maxLength(30)]], // Permite letras, números y espacios
-    'direccion': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ /]*$'), Validators.minLength(5), Validators.maxLength(255)]], // Permite letras, números y espacios
+    'direccion': ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ ,./]*$'), Validators.minLength(5), Validators.maxLength(255)]], // Permite letras, números y espacios
     'precio': ['', [Validators.required, Validators.min(20), Validators.max(120)]],
     'imagen': ['', [Validators.required, this.imageExtensionValidator()]], // Asegúrate de usar this. aquí
       'disponibilidad': ['', [Validators.required]]

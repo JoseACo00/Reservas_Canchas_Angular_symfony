@@ -64,6 +64,17 @@
               <div *ngIf="formArbitro.get('phone')?.touched && formArbitro.get('phone')?.errors?.['minlength']" class="alert alert-danger">El teléfono debe tener al menos 9 caracteres</div>
               <div *ngIf="formArbitro.get('phone')?.touched && formArbitro.get('phone')?.errors?.['maxlength']" class="alert alert-danger">El teléfono no debe exceder 12 caracteres</div>
           </div>
+
+          <div class="mb-5 form-check">
+            <label for="disponibilidad" class="form-label">Diponibilidad</label>
+            <select id="disponibilidad" class="form-control" name="disponibilidad" formControlName="disponibilidad" required>
+              <option value="Todos los dias">Todos los dias</option>
+              <option value="Turno tarde">Por las Tarde</option>
+              <option value="Fines de semana">Fines de semanas</option>
+              <option value="Total">Total</option>
+            </select>
+            <div *ngIf="formArbitro.get('disponibilidad')?.touched && formArbitro.get('disponibilidad')?.errors?.['required']" class="alert">Este campo es requerido</div>
+          </div>
           <div class="mb-5 form-check">
             <label for="experiences" class="form-label">Experiencias</label>
             <textarea id="experiences" name="experiences" formControlName="experiences" class="form-control" placeholder="Escribe tus Experiencias como arbitro y tus habilidades"></textarea>

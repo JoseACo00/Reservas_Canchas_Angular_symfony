@@ -23,7 +23,8 @@ export class RegistroArbitroComponent {
     'password': ['', [Validators.required, Validators.minLength(6), Validators.maxLength(50)]],
     'age': ['', [Validators.required, Validators.min(16), Validators.max(55)]], // Permite solo números
     'phone': ['', [Validators.required, Validators.minLength(9), Validators.maxLength(12), Validators.pattern('[0-9]*')]], // Permite solo números,
-    'experiences': ['', [Validators.required]]
+    'experiences': ['', [Validators.required]],
+    'disponibilidad': ['',  [Validators.required]]
   });
 
 

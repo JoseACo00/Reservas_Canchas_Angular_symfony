@@ -1,3 +1,5 @@
+import { PartidosArbitroComponent } from './Arbitro/partidos-arbitro/partidos-arbitro.component';
+import { EditarDisponibilidadComponent } from './Arbitro/editar-disponibilidad/editar-disponibilidad.component';
 import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
 import { EditCanchaComponent } from './Admin/edit-cancha/edit-cancha.component';
 import { ReservaCanchaComponent } from './Usuario/reserva-cancha/reserva-cancha.component';
@@ -22,6 +24,7 @@ import { PartidosAdminComponent } from './Admin/partidos-admin/partidos-admin.co
 import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
 import { AdminGuard } from './guards/Admin/admin.guard';
 import { UsuarioGuard } from './guards/User/usuario.guard';
+import { ArbitroGuard } from './guards/Arbitro/arbitro.guard';
 
 const routes: Routes = [
   //SIN REGISTRAR
@@ -47,6 +50,10 @@ const routes: Routes = [
   {path: 'Partidos', component: PartidoComponent},
   { path: 'Usuario/reservas', component: ListaReservaUsuarioComponent, canActivate: [ UsuarioGuard] },
   { path: 'Usuario/partidos', component: PartidosUsuarioComponent, canActivate: [ UsuarioGuard] },
+
+  //ACCIONES DE ARBITRO
+  { path: 'Arbitro/editar', component: EditarDisponibilidadComponent, canActivate: [ArbitroGuard] },
+  { path: 'arbitro/partidos', component: PartidosArbitroComponent, canActivate: [ArbitroGuard] },
 ];
 
 @NgModule({

@@ -30,6 +30,12 @@
                 <li><a routerLink="/Usuario/partidos">Mis Partidos</a></li>
               </ul>
             </li>
+            <li *ngIf="isArbitro"><a href="#">Arbitro</a>
+              <ul>
+                <li><a routerLink="arbitro/partidos">Partidos Asignados</a></li>
+                <li><a routerLink="/Arbitro/editar">Editar Disponibilidad</a></li>
+              </ul>
+            </li>
 
             <li *ngIf="isAdmin"><a href="#">Admin</a>
               <ul>

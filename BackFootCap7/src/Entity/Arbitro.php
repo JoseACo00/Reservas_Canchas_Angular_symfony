@@ -59,6 +59,9 @@ class Arbitro
     #[ORM\ManyToOne(targetEntity: Rol::class)]
     #[ORM\JoinColumn(name: "rol_id", referencedColumnName: "id")]
     private ?Rol $rol;
+
+    #[ORM\Column(length: 50)]
+    private ?string $Disponibilidad = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -240,6 +243,18 @@ class Arbitro
     public function setRol(?Rol $rol): self
     {
         $this->rol = $rol;
+
+        return $this;
+    }
+
+    public function getDisponibilidad(): ?string
+    {
+        return $this->Disponibilidad;
+    }
+
+    public function setDisponibilidad(string $Disponibilidad): static
+    {
+        $this->Disponibilidad = $Disponibilidad;
 
         return $this;
     }

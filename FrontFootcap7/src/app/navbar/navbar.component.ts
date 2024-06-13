@@ -12,15 +12,16 @@ export class NavbarComponent {
   isLoggedIn: boolean = false;
   isAdmin: boolean = false;
   isUser: boolean = false;
-
+  isArbitro: boolean = false;
   constructor(private loginService: LoginService,  private router: Router) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.loginService.isLoggedIn();
     if (this.isLoggedIn) {
-      const userRole = this.loginService.getUserRole();
-      this.isAdmin = userRole === 'Admin';
-      this.isUser = userRole === 'Usuario';
+      const role = this.loginService.getUserRole();
+      this.isUser = role === 'Usuario';
+      this.isAdmin = role === 'Admin';
+      this.isArbitro = role === 'Arbitro';
     }
   }
 

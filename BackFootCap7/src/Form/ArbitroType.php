@@ -74,7 +74,12 @@ class ArbitroType extends AbstractType
             ])
             ->add('experiences', TextType::class, [
                 'required' => true
-            ]);
+            ])
+
+            ->add('disponibilidad', TextType::class, [
+                'required' => true,
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

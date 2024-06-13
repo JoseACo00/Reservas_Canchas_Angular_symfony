@@ -31,6 +31,7 @@ import { AsignarPartidoComponent } from './Admin/asignar-partido/asignar-partido
 import { EditarPartidoComponent } from './Admin/editar-partido/editar-partido.component';
 import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
 import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-us
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SimpleNotificationsModule.forRoot()
 
   ],
   providers: [],

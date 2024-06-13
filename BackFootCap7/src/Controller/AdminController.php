@@ -59,23 +59,9 @@ class AdminController extends AbstractController
 
             if (isset($data['imagen'])) {
                 $imageUrl = $data['imagen'];
-                $imageContents = file_get_contents($imageUrl);
-                if ($imageContents) {
-                    $originalFilename = pathinfo($imageUrl, PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.jpg'; // o la extensión apropiada
 
-                    $imageDirectory = $this->getParameter('kernel.project_dir') . '/public/imagesCanchas';
-                    if (!file_exists($imageDirectory)) {
-                        mkdir($imageDirectory, 0777, true);
-                    }
-
-                    $imagePath = $imageDirectory . '/' . $newFilename;
-                    file_put_contents($imagePath, $imageContents);
-                    $cancha->setImagen($newFilename);
-                } else {
-                    return new JsonResponse(['error' => 'No se pudo descargar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
-                }
+                // Simplemente establece la URL de la imagen tal cual
+                $cancha->setImagen($imageUrl);
             }
 
             $cancha->setCreatedAt(new \DateTime('now'));
@@ -109,35 +95,14 @@ class AdminController extends AbstractController
         $canchaForm->submit($data);
 
         if ($canchaForm->isValid()) {
-            $cancha = $canchaForm->getData();
-
             if (isset($data['imagen'])) {
                 $imageUrl = $data['imagen'];
-                $imageContents = file_get_contents($imageUrl);
-                if ($imageContents) {
-                    $originalFilename = pathinfo($imageUrl, PATHINFO_FILENAME);
-                    $safeFilename = $slugger->slug($originalFilename);
-                    $newFilename = $safeFilename . '-' . uniqid() . '.jpg'; // o la extensión apropiada
-
-                    $imageDirectory = $this->getParameter('image_directory');
-                    if (!file_exists($imageDirectory)) {
-                        mkdir($imageDirectory, 0777, true);
-                    }
-
-                    $imagePath = $imageDirectory . '/' . $newFilename;
-                    file_put_contents($imagePath, $imageContents);
-                    $cancha->setImagen($newFilename);
-                } else {
-                    return new JsonResponse(['error' => 'No se pudo descargar la imagen'], JsonResponse::HTTP_BAD_REQUEST);
-                }
+                // Simplemente establece la URL de la imagen tal cual
+                $cancha->setImagen($imageUrl);
             }
-
             $cancha->setModifiedAt(new \DateTime('now'));
-
-            $em->persist($cancha);
             $em->flush();
-
-            return new JsonResponse(['success' => 'Cancha actualizada correctamente', 'cancha' => $cancha]);
+            return new JsonResponse(['success' => 'Cancha actualizada correctamente'], JsonResponse::HTTP_OK);
         } else {
             $errors = [];
             foreach ($canchaForm->getErrors(true) as $error) {
