@@ -16,6 +16,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
 
+
+/**
+ * Formulario para la entidad Reserva.
+ *
+ * Esta clase define el formulario utilizado para crear y editar entidades Reserva.
+ */
 class ReservaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

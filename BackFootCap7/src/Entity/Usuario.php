@@ -57,6 +57,12 @@ class Usuario
     #[ORM\ManyToOne(targetEntity: Rol::class)]
     #[ORM\JoinColumn(name: "rol_id", referencedColumnName: "id")]
     private ?Rol $rol;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reset_password = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $comfirm_email = null;
     public function getId(): ?int
     {
         return $this->id;
@@ -226,6 +232,30 @@ class Usuario
     public function setRol(?Rol $rol): self
     {
         $this->rol = $rol;
+
+        return $this;
+    }
+
+    public function getResetPassword(): ?string
+    {
+        return $this->reset_password;
+    }
+
+    public function setResetPassword(?string $reset_password): static
+    {
+        $this->reset_password = $reset_password;
+
+        return $this;
+    }
+
+    public function getComfirmEmail(): ?string
+    {
+        return $this->comfirm_email;
+    }
+
+    public function setComfirmEmail(?string $comfirm_email): static
+    {
+        $this->comfirm_email = $comfirm_email;
 
         return $this;
     }

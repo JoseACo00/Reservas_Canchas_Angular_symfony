@@ -17,6 +17,18 @@ class CanchaController extends AbstractController
         $this->CanchaRepository = $CanchaRepository;
     }
     //RUTA PARA COGER DATOS DE LA BASSE DE DATOS
+
+    /**
+     * Obtener todas las canchas que no han sido eliminadas.
+     *
+     * @Route("/cargarCanchas", name="CargarCanchas", methods={"GET"})
+     *
+     * Este endpoint obtiene todas las canchas disponibles que no han sido eliminadas (es decir, su campo `deleted_at` es NULL).
+     * Devuelve un arreglo de objetos JSON que contienen los detalles de cada cancha.
+     *
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     #[Route('/cargarCanchas', name: 'CargarCanchas', methods: ['GET'])]
     public function obtenereCanchas(EntityManagerInterface $em)
     {
@@ -49,7 +61,18 @@ class CanchaController extends AbstractController
     }
 
 
-
+    /**
+     * Obtener los detalles de una cancha específica por ID.
+     *
+     * @Route("/cancha/{cancha_id}", name="obtener_cancha", methods={"GET"})
+     *
+     * Este endpoint obtiene los detalles de una cancha específica basándose en su ID.
+     * Devuelve un objeto JSON que contiene los detalles de la cancha.
+     *
+     * @param int $cancha_id
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     //Obterner las canchas de de un determinado id
     #[Route('/cancha/{cancha_id}', name: 'obtener_cancha', methods: ['GET'])]
     public function obtenerCancha($cancha_id, EntityManagerInterface $em)

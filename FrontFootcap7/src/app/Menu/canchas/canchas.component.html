@@ -14,6 +14,34 @@
     </div>
   </header>
 
+  <div style="background-color: #095741; color: #ffffff; padding: 20px;">
+      <h1>Las reserva Funcionará así</h1>
+      <p>Necesitas seguir los siguientes pasos:</p>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Paso 1: Registrarte como usuario</h2>
+                <p>Para poder realizar una reserva, es necesario registrarte como usuario en nuestra plataforma. Si aún no tienes una cuenta, puedes crearla fácilmente siguiendo los pasos de registro.</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Paso 2: Elige la cancha que más te guste</h2>
+                <p>Explora nuestra lista de canchas disponibles y elige la que se ajuste a tus preferencias. En la tabla se muestra el precio de cada cancha por una hora de juego</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Paso 3: Realiza el pago</h2>
+                <p>Una vez seleccionada la cancha, podrás proceder a realizar la reserva. Puedes realizar el pago mediante Bizum o Transefencia bancaria donde podras subir un comprobante enviandolo al correo del administrador: footcap7@gmail.com, si lo prefieres, también aceptamos pagos en efectivo antes o después del encuentro. Después podras ver en tus partidos el estado de tu reserva para ver si el pago de bizum o transferencia es valido</p>
+                <p>Recuerda que el precio mostrado corresponde a una hora de juego. Si deseas añadir un árbitro a tu partido, se aplicará un costo adicional de 20 euros.</p>
+            </div>
+            <div class="col-md-6">
+                <h2>Paso 4: Disfrutar de la reserva y jugar</h2>
+                <p>Una vez completados los pasos anteriores, solo queda disfrutar de tu reserva y jugar al fútbol. Aprovecha al máximo tu tiempo en la cancha, diviértete con tus amigos y vive una gran experiencia deportiva.</p>
+                <p>Recuerda respetar las normas del lugar y mantener un ambiente amigable y deportivo. Si tienes alguna pregunta o necesitas ayuda durante tu reserva, nuestro equipo estará encantado de asistirte.</p>
+                <a href="Contacto" class="btn btn-primary">Contactar</a>
+            </div>
+
+        </div>
+  </div>
   <div class="table-responsive">
       <h2 style="text-align: center;">Listado de Canchas</h2>
         <table class="table">
@@ -34,7 +62,7 @@
               <td>{{ cancha.localidad }}</td>
               <td>{{ cancha.direccion }}</td>
               <td>{{ cancha.precio }}</td>
-              <td><img [src]="cancha.imagen" alt="{{ cancha.nombre }}" class="img-thumbnail" style="max-width: 100px;"></td>
+              <td><img [src]="cancha.imagen" alt="{{ cancha.nombre }}" class="img-thumbnail" style="max-width: 100px;" (click)="openImageModal(cancha.imagen, cancha.nombre)"></td>
               <td>{{ cancha.disponibilidad }}</td>
               <td>
                 <button *ngIf="isAdmin" class="btn btn-primary" (click)="editarCancha(cancha.id)">Editar</button>
@@ -63,6 +91,22 @@
                 </div>
               </div>
             </div>
+
+        <!-- Modal de imagen -->
+        <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" style="align-items: center;" id="imageModalLabel">Cancha {{ selectedCanchaNombre }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img [src]="selectedImage" class="img-fluid" alt="{{ selectedCanchaNombre }}">
+              </div>
+            </div>
+          </div>
+        </div>
+
 
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

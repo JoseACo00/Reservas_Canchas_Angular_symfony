@@ -32,6 +32,8 @@ import { EditarPartidoComponent } from './Admin/editar-partido/editar-partido.co
 import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
 import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-usuario.component';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
+import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     EditarPartidoComponent,
     ListaReservaUsuarioComponent,
     PartidosUsuarioComponent,
+    ResetpasswordComponent,
+    CambiarPasswordComponent,
 
   ],
   imports: [

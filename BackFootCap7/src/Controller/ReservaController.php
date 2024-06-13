@@ -25,6 +25,17 @@ class ReservaController extends AbstractController
         $this->CanchaRepository=$CanchaRepository;
     }
 
+    /**
+     * Obtener todas las reservas de un usuario específico (Soft Delete: No muestra reservas eliminadas).
+     *
+     * Este endpoint devuelve todas las reservas activas (no eliminadas) de un usuario específico.
+     *
+     * @Route("/usuario/{usuario_id}/reservas", name="reservas_usuario", methods={"GET"})
+     *
+     * @param EntityManagerInterface $em El gestor de entidades.
+     * @param int $usuario_id El ID del usuario cuyas reservas se desean obtener.
+     * @return JsonResponse La respuesta JSON con los datos de las reservas del usuario.
+     */
 
     // Obtener todas las reservas de un usuario específico SOFT DELETE NO SE MUESTRA
     #[Route('/usuario/{usuario_id}/reservas', name: 'reservas_usuario', methods: ['GET'])]

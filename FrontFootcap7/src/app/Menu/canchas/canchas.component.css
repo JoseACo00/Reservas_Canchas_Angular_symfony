@@ -32,4 +32,307 @@ boyd{
   text-transform: uppercase;
   color: #fff;
 }
+.title3{
+  text-align: left;
+  margin-left: 10vw;
+  margin-bottom: 3vh;
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
 
+
+}
+
+.titulonosotros{
+  text-align: center;
+   margin-bottom: 3vh;
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+}
+
+.titulo2{
+  text-align: center;
+   margin-bottom: 3vh;
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+}
+.parrafo2{
+  font-size: 20px;
+  color: rgb(243, 243, 243);
+  text-align: center;
+
+}
+
+.escogernos{
+  font-size: 20px;
+  color: rgb(243, 243, 243);
+  text-align: center;
+  background-color:  rgba(26, 119, 60, 0.5) ;
+  margin-right: 50vw;
+
+}
+
+
+p {
+  margin-bottom: 40px;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 0 100px;
+}
+.btnnosotros{
+  background-color:  #1c351d;
+  border-radius: 10px;
+  padding: 10px 40px;
+  text-decoration: none;
+  margin: auto;
+  color: white;
+}
+
+
+.btnescogernos{
+  background-color:  #1c351d;
+  border-radius: 10px;
+  padding: 10px 40px;
+  text-decoration: none;
+  margin: auto;
+  color: white;
+}
+
+.btn {
+  border: 2px solid #4e935c ;
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 40px;
+  background:  #1c351d;
+  color: #fff;
+  text-decoration: none;
+
+}
+
+.btn:hover {
+  background: none;
+
+}
+
+.btn-home {
+  display: flex;
+}
+
+.btn-home a {
+  margin: 0 10px;
+}
+
+
+.content {
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.imagentexto {
+  background: #171717;
+
+  align-items: center;
+  display: flex;
+  padding: auto;
+  margin: auto;
+  max-width: auto;
+  max-height: 100%;
+}
+.nosotrostexto {
+  background: #4e935c;
+
+  align-items: center;
+  display: flex;
+  padding: auto;
+  margin: auto;
+  max-width: auto;
+  max-height: 100%;
+}
+
+
+
+.ventajas {
+  padding: 60px;
+  background: #4e935c;
+
+}
+
+.box-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  text-align: center;
+  max-width: 100%;
+  max-height: 50%;
+
+}
+
+.box-container .box {
+  height: 18rem;
+  width: 17rem;
+  background: #000000;
+  text-align: center;
+  border-radius: 1rem;
+  box-shadow: 0 .3rem 5rem rgba(0, 0 , 0, .5);
+  margin: 2rem;
+}
+
+.box-container .box i {
+  height: 3rem;
+  width: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #000000;
+  font-size: 2rem;
+  margin: 1rem 0;
+
+}
+
+.box-container .box h3 {
+  font-size: 20px;
+  color: #bec0be ;
+
+}
+
+.box-container .box p {
+  padding: 0 0px;
+  font-size: 17px;
+}
+
+
+
+.us {
+  background-attachment: fixed;
+  background-size: cover;
+  text-align: center;
+}
+
+.nosotros{
+  padding: auto;
+  margin: auto;
+  max-width: 50%;
+  max-height: 100%;
+
+}
+
+.imagen4 {
+  width: 50%;
+}
+.imagen2 {
+  width: 50%;
+
+}
+
+.imagen4 img {
+  width: 50vw;
+  object-fit: contain;
+}
+.imagen2 img {
+  width: 50vw;
+  object-fit: contain;
+
+}
+
+
+
+.contact {
+  padding-top: 20px;
+  background: #171717;
+  padding-bottom: 0;
+}
+.footer {
+  background-color: black;
+  color: green;
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.columna1 {
+  flex-basis: 30%;
+}
+
+.columna2, .columna3 {
+  flex-basis: 20%;
+}
+
+.caja {
+  background-color: #5ea270;
+  padding: 10px;
+  height: 200px;
+  width: 400px;
+  color: rgb(0, 134, 67);
+  border-radius: 10px;
+}
+.contacto {
+  list-style-type: none;
+  padding: 0;
+  text-align: left;
+  margin-top: 10px;
+}
+
+.contacto li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+  color: rgb(8, 83, 21);
+}
+
+.contacto li i {
+  margin-right: 5px;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  margin-bottom: 10px;
+}
+
+.separador {
+  height: 1px;
+  background-color: gray;
+  margin: 20px 0;
+}
+
+.redes-sociales a {
+  margin-right: 10px;
+  color: green;
+}
+
+.derechos {
+  text-align: right;
+  color: green;
+}
+.pfooter{
+  color: #1c351d;
+}
+
+
+@media (max-width: 768px) {
+
+  .title {
+      margin-bottom: 0;
+      font-size: 40px;
+  }
+
+  .ventajas {
+      display: flexbox;
+  }
+
+  .navbar {
+      display: none;
+  }
+ .imagentexto{
+  display: flexbox;
+ }
+
+}

@@ -3,6 +3,7 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from 'src/app/services/Loggin/login.service';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-reserva-cancha',
@@ -20,9 +21,13 @@ export class ReservaCanchaComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private notifications: NotificationsService
   ) {}
 
+  /**
+   * Formulario para realizar la reserva de una cancha.
+   */
   formReservaCancha = this.fb.group({
     fecha_reserva: ['', [Validators.required]],
     hora_reserva: ['', [Validators.required]],
@@ -30,6 +35,31 @@ export class ReservaCanchaComponent implements OnInit{
     arbitro_opcion: ['', [Validators.required]],
     metodo_pago: ['', [Validators.required]]
   });
+
+  //MENSJAES DE ERROR
+  onError(message: string) {
+    this.notifications.error('Error', message, {
+      position: ["top", "center"], // Configuración de posición
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 4000
+    });
+  }
+
+   onSuccess(message: string) {
+    this.notifications.success('SUCCESS', message, {
+      position: ['top', 'middle'],
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 2000
+    });
+  }
+
+
+  /**
+   * Método de inicialización del componente.
+   * Verifica el rol del usuario y obtiene el ID de la cancha de los parámetros de la ruta.
+   */
 
   ngOnInit() {
     const userId = this.loginService.getUserId();
@@ -39,6 +69,7 @@ export class ReservaCanchaComponent implements OnInit{
       this.router.navigate(['/Inicio']);
       return;
     }
+
 
     this.usuarioId = userId;
     this.isUser = this.loginService.getUserRole() === 'Usuario';
@@ -55,19 +86,28 @@ export class ReservaCanchaComponent implements OnInit{
     });
   }
 
+   /**
+   * Procesa el formulario de reserva de cancha.
+   * Envía los datos al servicio de usuario para crear una reserva.
+   */
+
   procesar() {
     if (this.formReservaCancha.valid) {
       const formData = this.formReservaCancha.value;
       this.usuarioService.reservarCancha(this.usuarioId, this.canchaId, formData).subscribe(
         res => {
+          this.onSuccess('Reserva creada');
+          setTimeout(()=>{this.router.navigate(['/Canchas'])}, 3000);
           console.log('Reserva creada:', res);
-          this.router.navigate(['/Canchas']);
+
         },
         error => {
+          this.onError('Error al crear la reserva');
           console.error('Error al crear la reserva:', error);
         }
       );
     } else {
+      this.onError('Formulario no valido');
       console.error('Formulario no válido');
     }
   }

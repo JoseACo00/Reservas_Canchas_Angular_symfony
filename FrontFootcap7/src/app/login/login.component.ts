@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../services/Loggin/login.service';
 import jwt_decode from 'jwt-decode';
+import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,7 +12,7 @@ import jwt_decode from 'jwt-decode';
 export class LoginComponent {
 
 
-  constructor(private router: Router, private fb: FormBuilder, private LoginService:LoginService){
+  constructor(private router: Router, private fb: FormBuilder, private LoginService:LoginService,private notifications: NotificationsService){
 
   }
 
@@ -25,79 +26,57 @@ export class LoginComponent {
     console.log(this.formLogin.value);
   }
 
-
-  // public onLogin021() {
-  //   if (this.formLogin.valid) {
-  //     const rememberMe = this.formLogin.get('rememberMe')?.value;
-  //     this.LoginService.login(this.formLogin.value)
-  //       .subscribe(
-  //         (res: any) => {
-  //           if (res.token) {
-  //             const storage = rememberMe ? localStorage : localStorage;
-  //             storage.setItem('TokenJWT', res.token);
-  //             const decodedToken: any = jwt_decode(res.token);
-
-  //             setTimeout(() => {
-  //               // Redirige al usuario basado en su rol
-  //               if (decodedToken.rolName === 'Admin') {
-  //                 this.router.navigate(['/Canchas']);
-  //               } else if (decodedToken.rolName === 'Usuario') {
-  //                 this.router.navigate(['/user-dashboard']);
-  //               } else if (decodedToken.rolName === 'Arbitro') {
-  //                 this.router.navigate(['/arbitro-dashboard']);
-  //               } else {
-  //                 this.router.navigate(['/Inicio']);
-  //               }
-  //             }, 2000);
-  //           }
-  //         },
-  //         (error) => {
-  //           console.error('Error en el inicio de sesión:', error);
-  //           // Manejar errores de autenticación
-  //         }
-  //       );
-  //   } else {
-  //     // Manejar formulario inválido
-  //   }
-  // }
-
-  public onLogin021() {
-    if (this.formLogin.valid) {
-      const rememberMe = this.formLogin.get('remenberMe')?.value;
-      this.LoginService.login(this.formLogin.value)
-        .subscribe(
-          (res: any) => {
-            if (res.token) {
-              if (rememberMe) {
-                localStorage.setItem('TokenJWT', res.token);
-              } else {
-                sessionStorage.setItem('TokenJWT', res.token);
-              }
-              //CAMBIAR POR UN INSTANT LOS ALERTS
-              //this.translate.instant(
-
-              //SIEMPRE que sn
-
-              setTimeout(() => {
-                  this.router.navigate(['/Canchas']);
-              })
-
-              // this.onSuccess('Inicio de sesión exitoso');
-              // setTimeout(()=>{this.router.navigate(['/Inicio'])}, 2000); // Redirige a la página principal después del inicio de sesión
-            } else {
-
-          }
-
-
-          }
-
-        );
-    } else {
-
-    }
+  //ALERTAS
+  onSuccess(message: string) {
+    this.notifications.success('Correcto con padre', message, {
+      position: ['top', 'middle'],
+      animate: 'fromRight',
+      showProgressBar: true,
+      timeOut: 2000
+    });
+  }
+  onError(message: string) {
+    this.notifications.error('Error con padre', message, {
+      position: ["top", "center"], // Configuración de posición
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 4000
+    });
   }
 
+ /**
+   * Método para gestionar el inicio de sesión.
+   * Verifica si el formulario es válido, luego envía los datos al servicio de inicio de sesión.
+   * Si el inicio de sesión es exitoso, almacena el token JWT y redirige al usuario a la página principal.
+   */
+ public onLogin021() {
+  if (this.formLogin.valid) {
+    const rememberMe = this.formLogin.get('remenberMe')?.value;
+    this.LoginService.login(this.formLogin.value)
+      .subscribe(
+        (res: any) => {
+          if (res.token) {
+            if (rememberMe) {
+              localStorage.setItem('TokenJWT', res.token);
+            } else {
+              sessionStorage.setItem('TokenJWT', res.token);
+            }
+            this.onSuccess('Inicio de sesión exitoso');
+            setTimeout(() => {
+              this.router.navigate(['/Inicio']);
+            }, 2000); // Redirige a la página principal después de 2 segundos
+          } else {
+            this.onError('Error: No se recibió un token. Por favor, inténtelo nuevamente.');
+          }
+        },
+        (error: any) => {
+          this.onError(`Error de inicio de sesión: ${error.message}`);
+        }
+      );
+  } else {
+    this.onError('Formulario no válido. Por favor, completa todos los campos requeridos correctamente.');
+  }
 }
 
-
+}
 

@@ -13,6 +13,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\File;
 
+
+/**
+ * Formulario para la entidad cancha.
+ *
+ * Esta clase define el formulario utilizado para crear y editar entidades cancha.
+ */
 class CanchaType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

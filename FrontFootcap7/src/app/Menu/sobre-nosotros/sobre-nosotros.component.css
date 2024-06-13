@@ -1,0 +1,94 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Popins", sans-serif;
+}
+
+boyd{
+  text-align: center;
+  display: flex;
+  background-color: darkgreen;
+}
+
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.header {
+  height: 50vh !important;
+  background: url('/assets/Image/FotoCancha.jpg') no-repeat center;
+  background-size: cover;
+}
+
+.title {
+  margin-bottom: 40px;
+  font-size: 60px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.title, .titulonosotros, .titulo2 {
+  text-align: center;
+  margin-bottom: 3vh;
+  font-size: 50px;
+  font-weight: 600;
+  color: white;
+}
+
+
+
+.parrafo2 {
+  font-size: 20px;
+  color: rgb(243, 243, 243);
+  text-align: center;
+}
+
+.nosotrostexto, .us {
+  background: #4e935c;
+  align-items: center;
+  display: flex;
+  padding: auto;
+  margin: auto;
+  max-width: auto;
+  max-height: 100%;
+  text-align: center;
+}
+
+.imagen4 {
+  width: 50%;
+}
+
+.imagen4 img {
+  width: 50vw;
+  object-fit: contain;
+}
+
+.row {
+  background-color: #484848;
+  color: white;
+}
+
+.row p {
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .title {
+    margin-bottom: 0;
+    font-size: 40px;
+  }
+
+  .navbar {
+    display: none;
+  }
+
+  .imagentexto {
+    display: block;
+  }
+}

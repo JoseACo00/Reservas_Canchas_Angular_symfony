@@ -10,6 +10,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
+
+/**
+ * Formulario para la entidad Arbitro.
+ *
+ * Esta clase define el formulario utilizado para crear y editar entidades arbitros.
+ */
 class ArbitroType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

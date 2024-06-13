@@ -22,6 +22,18 @@ class LoginController extends AbstractController
         $this->jwtEncoder = $jwtEncoder;
     }
 
+    /**
+     * Control del login de usuarios.
+     *
+     * Este endpoint verifica si el correo electrónico y la contraseña proporcionados son correctos.
+     *
+     * @Route("/login", name="app_login", methods={"POST"})
+     *
+     * @param Request $request La solicitud HTTP.
+     * @param EntityManagerInterface $em El gestor de entidades.
+     * @param JwtEncoder $jwtEncoder El servicio para codificar el token JWT.
+     * @return JsonResponse La respuesta JSON con el token JWT si las credenciales son correctas.
+     */
 
     //CONTROL DEL LOGIN DEL USUARIOS
     //VERIFICA SI EL PASSWORD UNA VEZ DESCRIPTADO ES EL CORRETO Y PERTENECE AL USUARIO

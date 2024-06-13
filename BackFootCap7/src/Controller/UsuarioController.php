@@ -45,6 +45,15 @@ class UsuarioController extends AbstractController
     }
 
 
+    /**
+     * Crear un nuevo usuario.
+     *
+     * @Route("/registrarUsuario", name="add_usuario", methods={"POST"})
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     //RUTAS PARA EL USUARIO
 
     //ENDPOINT PARA GUARDAR EL USUARIO
@@ -108,6 +117,18 @@ class UsuarioController extends AbstractController
         return new JsonResponse(['status' => 'Usuario creado exitosamente'], JsonResponse::HTTP_CREATED);
     }
 
+    /**
+     * Reservar una cancha.
+     *
+     * @Route("/usuario/{usuario_id}/cancha/{cancha_id}/reservarCancha", name="reservar", methods={"POST"})
+     *
+     * @param int $usuario_id
+     * @param int $cancha_id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param SluggerInterface $slugger
+     * @return JsonResponse
+     */
 
     // RESERVAS REALIZADAS POR EL USUARIO
     #[Route('/usuario/{usuario_id}/cancha/{cancha_id}/reservarCancha', name: 'reservar', methods: ['POST'])]
@@ -215,7 +236,19 @@ class UsuarioController extends AbstractController
         return ['error' => false, 'filename' => $newFilename];
     }
 
-
+    /**
+     * Editar una reserva existente.
+     *
+     * @Route("/usuario/{usuario_id}/reserva/{reserva_id}/cancha/{cancha_id}/editar", name="editar_reserva", methods={"PUT"})
+     *
+     * @param int $usuario_id
+     * @param int $reserva_id
+     * @param int $cancha_id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @param SluggerInterface $slugger
+     * @return JsonResponse
+     */
 
     //EDITAR RESERVAS
     #[Route('/usuario/{usuario_id}/reserva/{reserva_id}/cancha/{cancha_id}/editar', name: 'editar_reserva', methods: ['PUT'])]
@@ -287,6 +320,17 @@ class UsuarioController extends AbstractController
 
         return new JsonResponse(['success' => 'Reserva actualizada correctamente', 'id' => $reserva->getId()], JsonResponse::HTTP_OK);
     }
+
+    /**
+     * Borrar/Cancelar una reserva existente.
+     *
+     * @Route("/reserva/{reserva_id}/eliminar", name="eliminar_reserva", methods={"DELETE"})
+     *
+     * @param int $reserva_id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
 
     //BORRAR/CANCELAR UNA RESERVA
     #[Route('/reserva/{reserva_id}/eliminar', name: 'eliminar_reserva', methods: ['DELETE'])]

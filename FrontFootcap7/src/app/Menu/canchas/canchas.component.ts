@@ -17,6 +17,8 @@ export class CanchasComponent  implements OnInit{
   isAdmin: boolean = false;
   isUser: boolean = false;
   canchaIdToDelete: number | null = null;
+  selectedImage: string | null = null;
+  selectedCanchaNombre: string | null = null;
   constructor(private router: Router, private cargarDatos: CargardataService, private LoginService: LoginService, private adminservice: AdminService){
   }
   ngOnInit() {
@@ -51,6 +53,16 @@ export class CanchasComponent  implements OnInit{
     if (deleteModal) {
       const modalInstance = new bootstrap.Modal(deleteModal);
       modalInstance.show();
+    }
+  }
+
+  openImageModal(imageUrl: string, canchaNombre: string): void {
+    this.selectedImage = imageUrl;
+    this.selectedCanchaNombre = canchaNombre;
+    const modalElement = document.getElementById('imageModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
     }
   }
 

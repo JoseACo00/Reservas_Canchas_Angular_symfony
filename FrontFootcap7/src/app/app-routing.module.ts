@@ -1,3 +1,4 @@
+import { ResetpasswordComponent } from './resetpassword/resetpassword.component';
 import { PartidosArbitroComponent } from './Arbitro/partidos-arbitro/partidos-arbitro.component';
 import { EditarDisponibilidadComponent } from './Arbitro/editar-disponibilidad/editar-disponibilidad.component';
 import { ListaReservaUsuarioComponent } from './Usuario/lista-reserva-usuario/lista-reserva-usuario.component';
@@ -25,6 +26,7 @@ import { PartidosUsuarioComponent } from './Usuario/partidos-usuario/partidos-us
 import { AdminGuard } from './guards/Admin/admin.guard';
 import { UsuarioGuard } from './guards/User/usuario.guard';
 import { ArbitroGuard } from './guards/Arbitro/arbitro.guard';
+import { CambiarPasswordComponent } from './cambiar-password/cambiar-password.component';
 
 const routes: Routes = [
   //SIN REGISTRAR
@@ -54,6 +56,10 @@ const routes: Routes = [
   //ACCIONES DE ARBITRO
   { path: 'Arbitro/editar', component: EditarDisponibilidadComponent, canActivate: [ArbitroGuard] },
   { path: 'arbitro/partidos', component: PartidosArbitroComponent, canActivate: [ArbitroGuard] },
+
+  //RESET PASSWORD
+  {path: "reset-password", component : ResetpasswordComponent},
+  {path: "cambiar-password", component : CambiarPasswordComponent},
 ];
 
 @NgModule({

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../services/Loggin/login.service';
 import { Router } from '@angular/router';
+import { NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-navbar',
@@ -13,8 +14,26 @@ export class NavbarComponent {
   isAdmin: boolean = false;
   isUser: boolean = false;
   isArbitro: boolean = false;
-  constructor(private loginService: LoginService,  private router: Router) { }
+  constructor(private loginService: LoginService,  private router: Router,private notifications: NotificationsService) { }
 
+
+   //ALERTAS
+   onSuccess(message: string) {
+    this.notifications.success('Correcto con padre', message, {
+      position: ['top', 'middle'],
+      animate: 'fromRight',
+      showProgressBar: true,
+      timeOut: 2000
+    });
+  }
+  onError(message: string) {
+    this.notifications.error('Sesion acabada', message, {
+      position: ["top", "center"], // Configuración de posición
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 4000
+    });
+  }
   ngOnInit(): void {
     this.isLoggedIn = this.loginService.isLoggedIn();
     if (this.isLoggedIn) {
@@ -27,6 +46,7 @@ export class NavbarComponent {
 
   logout(): void {
     this.loginService.logout();
+    this.onError('Has salido de tú cuenta')
     this.router.navigate(['/Login']);
   }
 }

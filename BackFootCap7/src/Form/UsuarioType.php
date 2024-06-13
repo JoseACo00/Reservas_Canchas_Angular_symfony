@@ -11,8 +11,23 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+
+
+
+/**
+ * Formulario para la entidad Usuario.
+ *
+ * Esta clase define el formulario utilizado para crear y editar entidades Usuario.
+ */
 class UsuarioType extends AbstractType
 {
+
+    /**
+     * Construye el formulario.
+     *
+     * @param FormBuilderInterface $builder El constructor del formulario.
+     * @param array $options Las opciones del formulario.
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder

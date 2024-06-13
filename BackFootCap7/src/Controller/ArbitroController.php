@@ -32,6 +32,15 @@ class ArbitroController extends AbstractController
         $this->ReservaRepository = $ReservaRepository;
     }
 
+    /**
+     * Registrar un nuevo árbitro.
+     *
+     * @Route("/registroArbitro", name="add_arbitro", methods={"POST"})
+     *
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     #[Route('/registroArbitro', name: 'add_arbitro', methods: ['POST'])]
     public function registrarArbitro(Request $request, EntityManagerInterface $em): JsonResponse
     {
@@ -76,6 +85,15 @@ class ArbitroController extends AbstractController
 
     }
 
+
+    /**
+     * Obtener todos los árbitros.
+     *
+     * @Route("/cargarArbitros", name="cargarArbitros", methods={"GET"})
+     *
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     //OBTENER ARBTIROS
     #[Route('/cargarArbitros', name: 'cargarArbitros', methods: ['GET'])]
     public function cargarArbitros(EntityManagerInterface $em)
@@ -103,6 +121,16 @@ class ArbitroController extends AbstractController
 
 
      //Modificar Experencias o disponibilidad
+    /**
+     * Actualizar el estado de un árbitro en un partido.
+     *
+     * @Route("/partido/{partido_id}/estado_arbitro", name="actualizar_estado_arbitro", methods={"PUT"})
+     *
+     * @param int $partido_id
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     #[Route('/arbitro/{arbitro_id}/edit', name: 'ModificarUsuario', methods: ['PUT'])]
     public function  editarArbitro(EntityManagerInterface $em, $arbitro_id, Request $request): JsonResponse
     {
@@ -157,6 +185,15 @@ class ArbitroController extends AbstractController
         return new JsonResponse(['success' => 'Estado del árbitro actualizado correctamente'], JsonResponse::HTTP_OK);
     }
 
+    /**
+     * Obtener los partidos asignados a un árbitro.
+     *
+     * @Route("/arbitro/{arbitro_id}/partidos", name="MatchArbitros", methods={"GET"})
+     *
+     * @param int $arbitro_id
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     #[Route('/arbitro/{arbitro_id}/partidos', name:'MatchArbitros', methods:['GET'])]
     public function obtenerMatchDeArbitros($arbitro_id, EntityManagerInterface $em): JsonResponse
     {
@@ -192,6 +229,15 @@ class ArbitroController extends AbstractController
     }
 
 
+    /**
+     * Obtener información de un árbitro por ID.
+     *
+     * @Route("/arbitro/{arbitro_id}", name="obtener_arbitro", methods={"GET"})
+     *
+     * @param int $arbitro_id
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */
     #[Route('/arbitro/{arbitro_id}', name:'obtener_arbitro', methods:['GET'])]
     public function obtenerArbitro($arbitro_id, EntityManagerInterface $em): JsonResponse
     {

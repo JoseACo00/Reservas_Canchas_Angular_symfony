@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationsService } from 'angular2-notifications';
 import { LoginService } from 'src/app/services/Loggin/login.service';
 import { UsuarioService } from 'src/app/services/User/usuario.service';
 
@@ -28,8 +29,29 @@ export class EditReservaComponent implements OnInit{
     private fb: FormBuilder,
     private usuarioService: UsuarioService,
     private loginService: LoginService,
-    private router: Router
+    private router: Router,
+    private notifications: NotificationsService
   ) { }
+
+
+   //MENSJAES DE ERROR
+   onError(message: string) {
+    this.notifications.error('Error', message, {
+      position: ["top", "center"], // Configuración de posición
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 4000
+    });
+  }
+
+   onSuccess(message: string) {
+    this.notifications.success('SUCCESS', message, {
+      position: ['top', 'middle'],
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 2000
+    });
+  }
 
   ngOnInit(): void {
     const userId = this.loginService.getUserId();
@@ -79,10 +101,12 @@ export class EditReservaComponent implements OnInit{
 
       this.usuarioService.editarReserva(this.reservaId, this.canchaId, this.usuarioId, data).subscribe(
         res => {
+          this.onSuccess('La reserva fue actualizadad')
           console.log('Reserva actualizada:', res);
-          this.router.navigate(['/Usuario/reservas']);
+          setTimeout(()=>{this.router.navigate(['/Usuario/reservas'])}, 3000);
         },
         error => {
+          this.onError('Error al actulizar la reserva');
           console.error('Error al actualizar la reserva:', error);
         }
       );

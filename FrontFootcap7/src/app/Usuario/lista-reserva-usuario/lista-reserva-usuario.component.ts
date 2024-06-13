@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/Loggin/login.service';
 import { UsuarioService } from 'src/app/services/User/usuario.service';
 import * as bootstrap from 'bootstrap';
+import { NotificationsService } from 'angular2-notifications';
 @Component({
   selector: 'app-lista-reserva-usuario',
   templateUrl: './lista-reserva-usuario.component.html',
@@ -15,13 +16,33 @@ export class ListaReservaUsuarioComponent {
   reservaIdToCancel: number | null = null;
   canchaIdToCancel: number | null = null;
 
-  constructor(private usuarioService: UsuarioService, private loginService: LoginService, private router: Router) { }
+  constructor(private usuarioService: UsuarioService, private loginService: LoginService, private router: Router,     private notifications: NotificationsService) { }
 
   ngOnInit(): void {
     this.usuarioId = this.loginService.getUserId(); // Obtener el ID del usuario del JWT
     if (this.usuarioId) {
       this.cargarReservas(this.usuarioId);
     }
+  }
+
+
+  //MENSJAES DE ERROR
+  onError(message: string) {
+    this.notifications.error('Error', message, {
+      position: ["top", "center"], // Configuración de posición
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 4000
+    });
+  }
+
+   onSuccess(message: string) {
+    this.notifications.success('SUCCESS', message, {
+      position: ['top', 'middle'],
+      animate: 'fromTop',
+      showProgressBar: true,
+      timeOut: 2000
+    });
   }
 
   cargarReservas(usuarioId: number): void {
@@ -53,6 +74,7 @@ export class ListaReservaUsuarioComponent {
 
       this.usuarioService.cancelarReserva(this.reservaIdToCancel, data).subscribe(
         res => {
+          this.onSuccess('reserva cancelada')
           console.log('Reserva cancelada:', res);
           this.cargarReservas(this.usuarioId!); // Recargar la lista de reservas
           const cancelModal = document.getElementById('cancelModal');
@@ -64,6 +86,7 @@ export class ListaReservaUsuarioComponent {
           }
         },
         error => {
+          this.onError('Reserva no se pudo cancelar')
           console.error('Error al cancelar la reserva:', error);
         }
       );

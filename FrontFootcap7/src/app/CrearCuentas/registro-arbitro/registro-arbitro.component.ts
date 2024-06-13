@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NotificationsService } from 'angular2-notifications';
 import { ArbitroService } from 'src/app/services/Arbitro/arbitro.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { ArbitroService } from 'src/app/services/Arbitro/arbitro.service';
 })
 export class RegistroArbitroComponent {
 
-  constructor(private router: Router, private fb: FormBuilder, private ArbitroService: ArbitroService){
+  constructor(private router: Router, private fb: FormBuilder, private ArbitroService: ArbitroService, private notifications: NotificationsService){
 
   }
 
@@ -27,16 +28,34 @@ export class RegistroArbitroComponent {
     'disponibilidad': ['',  [Validators.required]]
   });
 
+   //ALERTAS
+   onSuccess(message: string) {
+    this.notifications.success('Correcto caballer@', message, {
+      position: ['bottom', 'right'],
+      animate: 'fade',
+      showProgressBar: true,
+      timeOut: 2000
+    });
+  }
+  onError(message: string) {
+    this.notifications.error('Hubo un problema', message, {
+      position: ["top", "right"], // Configuración de posición
+      animate: 'fade',
+      showProgressBar: true,
+      timeOut: 4000
+    });
+  }
 
   public crearArbitro() {
     this.ArbitroService.registarArbitro(this.formArbitro.value)
       .subscribe(
         (response) => {
           console.log('Arbitro creado:', response);
-          this.router.navigate(['/Login']);
-          // Puedes agregar aquí lógica adicional después de enviar el formulario
+          this.onSuccess('Arbitro creado')
+          setTimeout(()=>{this.router.navigate(['/Login'])}, 3000);
         },
         (err : any) => {
+          this.onError('No se puedo registrar')
           console.error('Error al crear el arbitro:', err);
           // Puedes manejar el error aquí, por ejemplo, mostrando un mensaje al usuario
         }

@@ -21,6 +21,15 @@ class PartidoController extends AbstractController
         $this->partidoRepository = $partidoRepository;
     }
 
+    /**
+     * Obtener detalles de un partido específico.
+     *
+     * @Route("/partido/{partido_id}", name="partido_view", methods={"GET"})
+     *
+     * @param int $partido_id El ID del partido.
+     * @param PartidoRepository $partidoRepository El repositorio de partidos.
+     * @return JsonResponse La respuesta JSON con los detalles del partido.
+     */
     //OBTENER LOS PARTIDOS
     #[Route('/partido/{partido_id}', name: 'partido_view', methods: ['GET'])]
     public function view($partido_id, PartidoRepository $partidoRepository): JsonResponse
@@ -40,6 +49,14 @@ class PartidoController extends AbstractController
         ]);
     }
 
+    /**
+     * Obtener todos los partidos (para administradores).
+     *
+     * @Route("/cargarPartidos/admin", name="CargarPartidos", methods={"GET"})
+     *
+     * @param EntityManagerInterface $em El gestor de entidades.
+     * @return JsonResponse La respuesta JSON con la lista de partidos.
+     */
     //Obtner todos los partidos para admin
     #[Route('/cargarPartidos/admin', name: 'CargarPartidos', methods: ['GET'])]
     public function cargarPartidos(EntityManagerInterface $em): JsonResponse
@@ -68,7 +85,15 @@ class PartidoController extends AbstractController
 
     }
 
-
+    /**
+     * Obtener los partidos de un usuario específico.
+     *
+     * @Route("/partidos/Usuario/{usuario_id}", name="CargarPartidosUsuario", methods={"GET"})
+     *
+     * @param EntityManagerInterface $em El gestor de entidades.
+     * @param int $usuario_id El ID del usuario.
+     * @return JsonResponse La respuesta JSON con la lista de partidos del usuario.
+     */
     //ENDPOINT PARA QUE EL USUARIO PUEDA VISUALIZAR SUS PARTIDOS
     #[Route('/partidos/Usuario/{usuario_id}', name: 'CargarPartidosUsuario', methods: ['GET'])]
     public function mostrarPartidosDeUsuario(EntityManagerInterface $em, $usuario_id)

@@ -13,6 +13,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\Date;
 
+
+
+/**
+ * Formulario para la entidad Admin.
+ *
+ * Esta clase define el formulario utilizado para crear y editar entidades Admin.
+ */
 class AdminType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
