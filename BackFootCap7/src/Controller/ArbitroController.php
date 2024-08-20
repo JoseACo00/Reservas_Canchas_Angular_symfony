@@ -144,8 +144,8 @@ class ArbitroController extends AbstractController
         }
 
         // Actualizar la experiencia si está presente en los datos
-        if (isset($data['experiencia'])) {
-            $arbitro->setExperiencia($data['experiencia']);
+        if (isset($data['experiences'])) {
+            $arbitro->setExperiences($data['experiences']);
         }
 
         // Actualizar la disponibilidad si está presente en los datos

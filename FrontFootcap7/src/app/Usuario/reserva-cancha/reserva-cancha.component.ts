@@ -84,6 +84,16 @@ export class ReservaCanchaComponent implements OnInit{
     this.route.params.subscribe(params => {
       this.canchaId = +params['id'];
     });
+
+     // Inicializar arbitro_opcion con string 'true' o 'false'
+     this.formReservaCancha.get('arbitro_opcion')?.setValue('false');
+
+     // Convertir los valores de arbitro_opcion entre string y booleano
+     this.formReservaCancha.get('arbitro_opcion')?.valueChanges.subscribe(value => {
+       if (typeof value === 'boolean') {
+         this.formReservaCancha.get('arbitro_opcion')?.setValue(value ? 'true' : 'false', { emitEvent: false });
+       }
+     });
   }
 
    /**

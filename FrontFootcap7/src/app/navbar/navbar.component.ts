@@ -27,7 +27,7 @@ export class NavbarComponent {
     });
   }
   onError(message: string) {
-    this.notifications.error('Sesion acabada', message, {
+    this.notifications.error('Cuenta  Cerrada', message, {
       position: ["top", "center"], // Configuración de posición
       animate: 'fromTop',
       showProgressBar: true,
@@ -46,7 +46,8 @@ export class NavbarComponent {
 
   logout(): void {
     this.loginService.logout();
-    this.onError('Has salido de tú cuenta')
-    this.router.navigate(['/Login']);
+    this.onError('Has salido de tú cuenta');
+    setTimeout(()=>{this.router.navigate(['/Login'])}, 3000);
+
   }
 }
